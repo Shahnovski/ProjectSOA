@@ -28,7 +28,8 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     public IngredientDTO saveIngredient(Long id, IngredientDTO ingredientDTO) {
         Ingredient modifiedIngredient = ingredientMapper.toIngredient(ingredientDTO);
-        if (ingredientRepository.findByIngredientCode(modifiedIngredient.getIngredientCode()) != null) {
+        Ingredient byIngredientCode = ingredientRepository.findByIngredientCode(modifiedIngredient.getIngredientCode());
+        if (byIngredientCode != null && !byIngredientCode.getId().equals(id)) {
             throw new IngredientCodeExistsException();
         }
         if (id != null) {
