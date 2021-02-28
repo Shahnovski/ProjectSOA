@@ -1,4 +1,4 @@
-package com.example.ingredientscatalogserver.Ingredient;
+package com.example.ingredientscatalogserver.ingredient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +17,9 @@ public class Ingredient {
     @GeneratedValue
     @Column(name = "id", nullable = false)
     private Long id;
+
+    @Column(name = "ingredientCode", nullable = false, unique = true)
+    private Long ingredientCode;
 
     @Column(name = "ingredientName", nullable = false)
     private String ingredientName;

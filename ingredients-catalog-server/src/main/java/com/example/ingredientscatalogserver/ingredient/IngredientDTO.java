@@ -1,4 +1,4 @@
-package com.example.ingredientscatalogserver.Ingredient;
+package com.example.ingredientscatalogserver.ingredient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class IngredientDTO {
 
     private Long id;
+    private Long ingredientCode;
     private String ingredientName;
     private Double ingredientCalories;
     private Double ingredientProteins;
