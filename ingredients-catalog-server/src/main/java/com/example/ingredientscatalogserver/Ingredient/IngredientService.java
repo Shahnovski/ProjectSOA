@@ -1,4 +1,4 @@
-package com.example.ingredientscatalogserver.Ingredient;
+package com.example.ingredientscatalogserver.ingredient;
 
 import java.util.List;
 
