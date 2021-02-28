@@ -1,7 +1,9 @@
-package com.example.ingredientscatalogserver.Ingredient;
+package com.example.ingredientscatalogserver.ingredient;
 
 import com.example.ingredientscatalogserver.common.ApplicationProperties;
+import com.example.ingredientscatalogserver.exceptions.IngredientCodeExistsException;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +39,11 @@ public class IngredientController {
     @DeleteMapping("/{id}")
     public void deleteIngredient(@PathVariable(value = "id") Long ingredientId) {
         ingredientService.deleteIngredient(ingredientId);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IngredientCodeExistsException.class)
+    public String handleValidationExceptions(IngredientCodeExistsException ex) {
+        return "This ingredientCode is already exists!";
     }
 }

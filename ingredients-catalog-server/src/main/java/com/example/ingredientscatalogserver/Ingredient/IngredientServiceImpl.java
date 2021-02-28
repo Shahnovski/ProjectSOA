@@ -1,5 +1,6 @@
-package com.example.ingredientscatalogserver.Ingredient;
+package com.example.ingredientscatalogserver.ingredient;
 
+import com.example.ingredientscatalogserver.exceptions.IngredientCodeExistsException;
 import com.example.ingredientscatalogserver.exceptions.IngredientNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     public IngredientDTO saveIngredient(Long id, IngredientDTO ingredientDTO) {
         Ingredient modifiedIngredient = ingredientMapper.toIngredient(ingredientDTO);
+        if (ingredientRepository.findByIngredientCode(modifiedIngredient.getIngredientCode()) != null) {
+            throw new IngredientCodeExistsException();
+        }
         if (id != null) {
             modifiedIngredient.setId(id);
         }
