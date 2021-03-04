@@ -1,4 +1,4 @@
-package com.example.ingredientscatalogserver.ingredient;
+package com.example.internetshopserver.ingredient;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,15 +23,8 @@ public class Ingredient {
     @Column(name = "ingredientName", nullable = false)
     private String ingredientName;
 
-    @Column(name = "ingredientCalories", nullable = false)
-    private Double ingredientCalories;
+    @Column(name = "ingredientPrice", nullable = false)
+    private Double ingredientPrice;
 
-    @Column(name = "ingredientProteins", nullable = false)
-    private Double ingredientProteins;
-
-    @Column(name = "ingredientCarbohydrates", nullable = false)
-    private Double ingredientCarbohydrates;
-
-    @Column(name = "ingredientFats", nullable = false)
-    private Double ingredientFats;
 }
+

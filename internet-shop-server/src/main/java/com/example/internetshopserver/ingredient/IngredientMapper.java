@@ -1,7 +1,6 @@
-package com.example.ingredientscatalogserver.ingredient;
+package com.example.internetshopserver.ingredient;
 
 import org.mapstruct.Mapper;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -12,3 +11,4 @@ public interface IngredientMapper {
 
     Ingredient toIngredient(IngredientDTO ingredientDTO);
 }
+
