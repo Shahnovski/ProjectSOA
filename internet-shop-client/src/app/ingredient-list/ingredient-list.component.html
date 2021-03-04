@@ -15,9 +15,9 @@
       </thead>
       <tbody>
       <tr *ngFor="let ingredient of ingredients">
-        <td>{{ingredient.shopItemName}}</td>
-        <td>{{ingredient.shopItemCode}}</td>
-        <td>{{ingredient.shopItemCost}}</td>
+        <td>{{ingredient.ingredientName}}</td>
+        <td>{{ingredient.ingredientCode}}</td>
+        <td>{{ingredient.ingredientPrice}}</td>
         <td><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
         <td><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
       </tr>

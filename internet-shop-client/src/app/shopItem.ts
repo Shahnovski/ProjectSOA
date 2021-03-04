@@ -1,7 +1,7 @@
 
 export class ShopItem {
   id = 0;
-  shopItemCode = 0;
-  shopItemName = '';
-  shopItemCost = 0;
+  ingredientCode = 0;
+  ingredientName = '';
+  ingredientPrice = 0;
 }

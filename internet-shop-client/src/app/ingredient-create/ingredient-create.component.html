@@ -7,7 +7,7 @@
 
         <div class="form-group">
           <label class="col-md-4">Name</label>
-          <label for="ingredientName"></label><input type="text" class="form-control" id="ingredientName" formControlName="ingredientName" required [(ngModel)]="ingredient.shopItemName" name="ingredientName">
+          <label for="ingredientName"></label><input type="text" class="form-control" id="ingredientName" formControlName="ingredientName" required [(ngModel)]="ingredient.ingredientName" name="ingredientName">
         </div>
         <div *ngIf="ingredientForm.controls['ingredientName'].invalid && (ingredientForm.controls['ingredientName'].dirty || ingredientForm.controls['ingredientName'].touched)" class="alert alert-danger">
           <div *ngIf="ingredientForm.controls['ingredientName'].errors!.required">
@@ -17,7 +17,7 @@
 
         <div class="form-group">
           <label class="col-md-4">Code</label>
-          <label for="ingredientCode"></label><input type="text" class="form-control" id="ingredientCode" formControlName="ingredientCode" required [(ngModel)]="ingredient.shopItemCode" name="ingredientCode">
+          <label for="ingredientCode"></label><input type="text" class="form-control" id="ingredientCode" formControlName="ingredientCode" required [(ngModel)]="ingredient.ingredientCode" name="ingredientCode">
         </div>
         <div *ngIf="ingredientForm.controls['ingredientCode'].invalid && (ingredientForm.controls['ingredientCode'].dirty || ingredientForm.controls['ingredientCode'].touched)" class="alert alert-danger">
           <div *ngIf="ingredientForm.controls['ingredientCode'].errors!.required">
@@ -30,7 +30,7 @@
 
         <div class="form-group">
           <label class="col-md-4">Cost</label>
-          <label for="ingredientCost"></label><input type="text" class="form-control" id="ingredientCost" formControlName="ingredientCost" required [(ngModel)]="ingredient.shopItemCost" name="ingredientCalories">
+          <label for="ingredientCost"></label><input type="text" class="form-control" id="ingredientCost" formControlName="ingredientCost" required [(ngModel)]="ingredient.ingredientPrice" name="ingredientCalories">
         </div>
         <div *ngIf="ingredientForm.controls['ingredientCost'].invalid && (ingredientForm.controls['ingredientCost'].dirty || ingredientForm.controls['ingredientCost'].touched)" class="alert alert-danger">
           <div *ngIf="ingredientForm.controls['ingredientCost'].errors!.required">
