@@ -1,7 +1,6 @@
 package com.example.ingredientscatalogserver.ingredient;
 
 import org.mapstruct.Mapper;
-
 import java.util.List;
 
 @Mapper(componentModel = "spring")
