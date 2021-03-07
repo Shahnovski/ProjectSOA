@@ -7,3 +7,9 @@ BankServer/.vs/BankServer/config/applicationhost.config
 BankServer/.vs/BankServer/v16/.suo
 BankServer/.vs/BankServer/v16/Server/sqlite3/storage.ide-shm
 BankServer/.vs/BankServer/v16/Server/sqlite3/storage.ide-wal
+
+MenuServer/.vs/MenuServer/DesignTimeBuild/.dtbcache
+MenuServer/.vs/MenuServer/config/applicationhost.config
+MenuServer/.vs/MenuServer/v16/.suo
+MenuServer/.vs/MenuServer/v16/Server/sqlite3/storage.ide-shm
+MenuServer/.vs/MenuServer/v16/Server/sqlite3/storage.ide-wal
