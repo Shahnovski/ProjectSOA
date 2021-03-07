@@ -5,3 +5,5 @@ internet-shop-server/src/main/resources/application.properties
 BankServer/.vs/BankServer/DesignTimeBuild/.dtbcache
 BankServer/.vs/BankServer/config/applicationhost.config
 BankServer/.vs/BankServer/v16/.suo
+BankServer/.vs/BankServer/v16/Server/sqlite3/storage.ide-shm
+BankServer/.vs/BankServer/v16/Server/sqlite3/storage.ide-wal
