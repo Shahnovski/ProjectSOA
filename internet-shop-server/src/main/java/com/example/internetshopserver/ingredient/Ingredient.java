@@ -1,9 +1,11 @@
 package com.example.internetshopserver.ingredient;
 
+import com.example.internetshopserver.cartitem.CartItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,6 +27,9 @@ public class Ingredient {
 
     @Column(name = "ingredientPrice", nullable = false)
     private Double ingredientPrice;
+
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<CartItem> cartItems;
 
 }
 
