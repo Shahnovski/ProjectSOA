@@ -2,20 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
-namespace MenuServer.Models
+namespace MenuServer.Dtos
 {
-    public class Dish_Ingredient
+    public class Dish_IngredientDto
     {
-        [Key]
         public int DishId { get; set; }
-        public Dish Dish { get; set; }
-
-        [Key]
         public int IngredientId { get; set; }
-        public Ingredient Ingredient { get; set; }
-        [Required]
         public int AmountOfIngredient { get; set; }
     }
 }

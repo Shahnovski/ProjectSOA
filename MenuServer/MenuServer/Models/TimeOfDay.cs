@@ -12,7 +12,6 @@ namespace MenuServer.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-
         [Required]
         public int MenuId { get; set; }
         public Menu Menu { get; set; }

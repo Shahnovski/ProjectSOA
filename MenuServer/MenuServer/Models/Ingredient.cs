@@ -12,7 +12,7 @@ namespace MenuServer.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        
+        [Required]
         public int IngerientCode { get; set; }
 
         public IEnumerable<Dish_Ingredient> IngredientDish { get; set; }

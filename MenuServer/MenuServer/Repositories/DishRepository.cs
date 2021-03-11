@@ -1,0 +1,56 @@
+﻿using MenuServer.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MenuServer.Repositories
+{
+    public class DishRepository : BaseRepository, IDishRepository
+    {
+        public DishRepository(MenuServerContext context) : base(context) { }
+        public IEnumerable<Dish> FindAll()
+        {
+            return _context.Dish
+                .OrderBy(g => g.Name)
+                .Include(g => g.DishIngredients)
+                .ThenInclude(gp => gp.Ingredient);
+        }
+
+        public Dish FindById(int id)
+        {
+            return _context.Dish
+                .OrderBy(g => g.Name)
+                .Include(g => g.DishIngredients)
+                .ThenInclude(gp => gp.Ingredient)
+                .FirstOrDefault(g => g.Id == id);
+        }
+        public void Add(Dish entity)
+        {
+            _context.Set<Dish>().Add(entity);
+        }
+
+        public void Update(Dish entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            _context.Set<Dish>().Update(entity);
+        }
+
+        public void Delete(Dish entity)
+        {
+            _context.Set<Dish>().Remove(entity);
+        }
+
+        public Dish Save(Dish entity)
+        {
+            _context.SaveChanges();
+            return entity;
+        }
+
+        public bool EntityExists(int id)
+        {
+            return _context.Dish.Any(g => g.Id == id);
+        }
+    }
+}

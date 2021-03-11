@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MenuServer.Dtos
 {
-    public class DishDto
+    public class DayOfWeekDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

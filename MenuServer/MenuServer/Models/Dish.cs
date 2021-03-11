@@ -12,9 +12,7 @@ namespace MenuServer.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public int DayId { get; set; }
-        public int TimeId { get; set; }
-
+       
         [Required]
         public IEnumerable<Dish_Ingredient> DishIngredients { get; set; }
 
