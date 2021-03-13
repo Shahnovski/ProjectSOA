@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ShopItem} from '../shopItem';
 import {IngredientItemService} from '../services/ingredient-item.service';
+import {CartItemService} from "../services/cart-item.service";
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -11,7 +13,8 @@ export class IngredientListComponent implements OnInit {
 
   ingredients: ShopItem[] = [];
 
-  constructor(private ingredientItemService: IngredientItemService) { }
+  constructor(private ingredientItemService: IngredientItemService,
+              private cartItemService: CartItemService) { }
 
   ngOnInit(): void {
     this.loadIngredients();
@@ -34,6 +37,26 @@ export class IngredientListComponent implements OnInit {
           this.loadIngredients();
         },
         error => console.log(error));
+  }
+
+  addIngredientToCart(cartItem: { ingredientId: number; cartItemCount: number }) {
+    this.cartItemService.createCartItem(cartItem).subscribe(
+      data => {
+        this.loadCartItemsCount(1);
+      },
+      error => {
+        console.log(error)
+      });
+  }
+
+  loadCartItemsCount(userId: number) {
+    this.cartItemService.getCartItemsCount(1).subscribe(
+      data => {
+        AppComponent.cartItemsCount = data;
+      },
+      error => {
+        console.log(error)
+      })
   }
 
 }

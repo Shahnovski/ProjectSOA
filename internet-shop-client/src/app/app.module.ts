@@ -7,21 +7,26 @@ import { IngredientCreateComponent } from './ingredient-create/ingredient-create
 import { IngredientEditComponent } from './ingredient-edit/ingredient-edit.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 import {HttpClientModule} from '@angular/common/http';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { CartItemListComponent } from './cart-item-list/cart-item-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     IngredientCreateComponent,
     IngredientEditComponent,
-    IngredientListComponent
+    IngredientListComponent,
+    CartItemListComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        NgbModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

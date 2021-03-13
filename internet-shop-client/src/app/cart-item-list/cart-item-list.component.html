@@ -1,0 +1,40 @@
+<div class="modal-body">
+  <div class="panel-body">
+    <br>
+    <h3>Your cart</h3>
+    <br>
+    <br>
+    <br>
+    <table class="table table-striped table-bordered table-hover ">
+      <thead>
+      <tr>
+        <th class="butMiddle">Name</th>
+        <th class="butMiddle">Count</th>
+        <th class="butMiddle">Cost</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let cartItem of cartItems">
+        <td class="butMiddle">{{cartItem.ingredientName}}</td>
+        <td class="butMiddle">
+          <input (click)="updateIngredient(cartItem.id, cartItem)" type="number" min="0" id="typeNumber" [(ngModel)]="cartItem.cartItemCount" class="form-control"/>
+        </td>
+        <td class="butMiddle">{{cartItem.ingredientPrice * cartItem.cartItemCount}}</td>
+        <td class="butMiddle"><button (click)="deleteCartItem(cartItem.id)" class="btn btn-outline-danger">Delete</button></td>
+      </tr>
+      <tr *ngIf="this.cartItems.length != 0">
+        <td class="butMiddle font-weight-bold">Total:</td>
+        <td class="butMiddle font-weight-bold">{{this.totalCount}}</td>
+        <td class="butMiddle font-weight-bold">{{this.totalCost}}</td>
+        <td class="butMiddle"><button (click)="deleteCartItemsByUserId(1)" class="btn btn-outline-danger">Delete all</button></td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="modal-footer">
+      <button  class="btn btn-primary mr-2" (click)="modal.close('Cancel')">Close</button>
+    </div>
+
+  </div>
+</div>

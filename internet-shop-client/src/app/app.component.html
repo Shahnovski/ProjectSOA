@@ -10,6 +10,10 @@
         <a routerLink="add-ingredient" class="nav-link" role="button" routerLinkActive="active">Add ingredient</a>
       </li>
 
+      <li class="nav-item" style="margin-left: 800px;">
+        <a (click)="openCart()" routerLink="" class="nav-link" role="button" routerLinkActive="active">Cart (<b>{{getCartItemsCount()}}</b>)</a>
+      </li>
+
     </ul>
   </nav>
   <router-outlet></router-outlet>
