@@ -5,11 +5,7 @@ import com.example.internetshopserver.exceptions.IngredientNotFoundException;
 import com.example.internetshopserver.ingredient.Ingredient;
 import com.example.internetshopserver.ingredient.IngredientRepository;
 import lombok.AllArgsConstructor;
-import org.postgresql.util.PSQLException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -23,7 +19,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public List<CartItemDTO> getCartItemList() {
-        return cartItemMapper.toCartItemDTOs(cartItemRepository.findAll());
+        return cartItemMapper.toCartItemDTOs(cartItemRepository.findAllByOrderById());
     }
 
     @Override
@@ -52,6 +48,11 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public void deleteByUserId(Long userId) {
         cartItemRepository.deleteAll();
+    }
+
+    @Override
+    public Long getCartItemsCountByUserId(Long userId) {
+        return cartItemRepository.count();
     }
 
 }

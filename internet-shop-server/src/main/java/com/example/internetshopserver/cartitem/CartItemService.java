@@ -14,4 +14,6 @@ public interface CartItemService {
     void deleteCartItem(Long id);
 
     void deleteByUserId(Long userId);
+    
+    Long getCartItemsCountByUserId(Long userId);
 }

@@ -45,6 +45,11 @@ public class CartItemController {
         cartItemService.deleteByUserId(userId);
     }
 
+    @GetMapping("/cartItemsCount/{userId}")
+    public Long getCartItemsCountByUserId(@PathVariable(value = "userId") Long userId) {
+        return cartItemService.getCartItemsCountByUserId(userId);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(org.postgresql.util.PSQLException.class)
     public String handleValidationExceptions(org.postgresql.util.PSQLException ex) {
