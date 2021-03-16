@@ -46,7 +46,11 @@ namespace BankServer.Services
             else
             {
                 account.AccountMoney = 0;
+                account.AccountNumber = "";
                 _accountRepository.Add(account);
+                account = _accountRepository.Save(account);
+                account.AccountNumber = GenerateAccountNumber(account.AccountId);
+                _accountRepository.Update(account);
             }
             return _mapper.Map<AccountDto>(_accountRepository.Save(account));
         }
@@ -61,6 +65,16 @@ namespace BankServer.Services
         public bool EntityExists(int id)
         {
             return _accountRepository.EntityExists(id);
+        }
+
+        private string GenerateAccountNumber(int accountId)
+        {
+            string accountNumber = accountId.ToString();
+            for (int i = accountNumber.Length; i <= 8; i++)
+            {
+                accountNumber = "0" + accountNumber;
+            }
+            return accountNumber;
         }
     }
 }
