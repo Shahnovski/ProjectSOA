@@ -20,6 +20,11 @@ public class IngredientController {
         return ingredientService.getIngredientList();
     }
 
+    @GetMapping(value = "/", params = "codes", produces = "application/json; charset=UTF-8")
+    List<IngredientDTO> getIngredientListByCodes(@RequestParam(value = "codes") List<Long> codes) {
+        return ingredientService.getIngredientListByCodes(codes);
+    }
+
     @GetMapping("/{id}")
     IngredientDTO getIngredientById(@PathVariable(value = "id") Long ingredientId) {
         return ingredientService.getIngredientById(ingredientId);
