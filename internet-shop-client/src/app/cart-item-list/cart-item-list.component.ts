@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CartItem} from "../cartItem";
 import {CartItemService} from "../services/cart-item.service";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {PaymentComponent} from "../payment/payment.component";
 
 @Component({
   selector: 'app-cart-item-list',
@@ -15,7 +16,8 @@ export class CartItemListComponent implements OnInit {
   totalCost: number = 0;
 
   constructor(private cartItemService: CartItemService,
-              public modal: NgbActiveModal) { }
+              public modal: NgbActiveModal,
+              private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadCartItems();
@@ -67,6 +69,23 @@ export class CartItemListComponent implements OnInit {
       this.totalCount += item.cartItemCount;
       this.totalCost += item.ingredientPrice * item.cartItemCount;
     })
+  }
+
+  moveToPayment() {
+    const ref = this.modalService.open(PaymentComponent, { centered: true });
+    ref.componentInstance.totalCost = this.totalCost;
+    ref.result.then((result) => {
+      if (result === 'Cancel') {
+        this.loadCartItems();
+      }
+      else {
+        this.deleteCartItemsByUserId(1);
+        this.modal.close('Save');
+      }
+      },
+      (cancel) => {
+        this.loadCartItems();
+      });
   }
 
 }

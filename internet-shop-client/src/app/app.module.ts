@@ -10,6 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CartItemListComponent } from './cart-item-list/cart-item-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     IngredientCreateComponent,
     IngredientEditComponent,
     IngredientListComponent,
-    CartItemListComponent
+    CartItemListComponent,
+    PaymentComponent
   ],
     imports: [
         BrowserModule,

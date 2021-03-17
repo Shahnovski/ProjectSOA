@@ -30,6 +30,11 @@ namespace BankServer.Services
             return _mapper.Map<AccountDto>(_accountRepository.FindById(id));
         }
 
+        public AccountDto GetByNumber(string number)
+        {
+            return _mapper.Map<AccountDto>(_accountRepository.FindByNumber(number));
+        }
+
         public AccountDto Save(int id, AccountDto dto)
         {
             Account account = _mapper.Map<Account>(dto);

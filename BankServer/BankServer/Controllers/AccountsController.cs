@@ -83,6 +83,46 @@ namespace BankServer.Controllers
             return Ok(accountDto);
         }
 
+        // PUT: api/Accounts/byNumber/00001234
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://aka.ms/RazorPagesCRUD.
+        [HttpPut("byNumber/{number}")]
+        public IActionResult PutAccountByNumber([FromRoute] string number, [FromBody] AccountDto accountDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!number.Equals(accountDto.AccountNumber))
+            {
+                return BadRequest();
+            }
+
+            AccountDto findedByNumberAccountDto;
+
+            try
+            {
+                findedByNumberAccountDto = _accountService.GetByNumber(accountDto.AccountNumber);
+                if (findedByNumberAccountDto != null)
+                {
+                    findedByNumberAccountDto.AccountMoney = accountDto.AccountMoney;
+                    findedByNumberAccountDto = _accountService.Save(findedByNumberAccountDto.AccountId, findedByNumberAccountDto);
+                }
+                else
+                {
+                    return NotFound("Account not found!");
+                }
+            }
+
+            catch (NotEnoughMoneyException)
+            {
+                return BadRequest("Not enough money in the account!");
+            }
+
+            return Ok(findedByNumberAccountDto);
+        }
+
         // POST: api/Accounts
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
