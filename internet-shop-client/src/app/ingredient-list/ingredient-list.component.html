@@ -6,9 +6,9 @@
     <table class="table table-striped table-bordered table-hover ">
       <thead>
       <tr>
-        <th class="col-lg-8">Name</th>
-        <th>Code</th>
-        <th>Cost</th>
+        <th class="center">Name</th>
+        <th class="center">Code</th>
+        <th class="center">Cost</th>
         <th></th>
         <th></th>
         <th></th>
@@ -16,12 +16,12 @@
       </thead>
       <tbody>
       <tr *ngFor="let ingredient of ingredients">
-        <td>{{ingredient.ingredientName}}</td>
-        <td>{{ingredient.ingredientCode}}</td>
-        <td>{{ingredient.ingredientPrice}}</td>
-        <td><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
-        <td><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
-        <td><button (click)="addIngredientToCart({ingredientId : ingredient.id, cartItemCount : 1})"
+        <td class="center">{{ingredient.ingredientName}}</td>
+        <td class="center">{{ingredient.ingredientCode}}</td>
+        <td class="center">{{ingredient.ingredientPrice}}</td>
+        <td class="center"><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
+        <td class="center"><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
+        <td class="center"><button (click)="addIngredientToCart({ingredientId : ingredient.id, cartItemCount : 1})"
                     class="btn btn-outline-success">Add to cart</button></td>
       </tr>
       </tbody>
