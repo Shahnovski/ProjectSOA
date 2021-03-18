@@ -2,122 +2,122 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MenuServer.Dtos;
+using MenuServer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MenuServer.Models;
-using MenuServer.Services;
-using MenuServer.Dtos;
 
 namespace MenuServer.Controllers
 {
     [Route("api/[controller]")]
     [Produces("application/json")]
     [ApiController]
-    public class IngredientsController : ControllerBase
+    public class DishesController : ControllerBase
     {
-        private readonly IIngredientService _ingredientService;
+        private readonly IDishService _dishService;
 
-        public IngredientsController(IIngredientService ingredientService)
+        public DishesController(IDishService dishService)
         {
-            _ingredientService = ingredientService;
+            _dishService = dishService;
         }
 
-        // GET: api/Ingredients
+        // GET: api/Dishes
         [HttpGet]
         //[AllowAnonymous]
-        public IEnumerable<IngredientDto> GetIngredient()
+        public IEnumerable<DishDto> GetDish()
         {
-            return _ingredientService.GetAll();
+            return _dishService.GetAll();
         }
 
-        // GET: api/Categories/5
+        // GET: api/Dishes/5
         [HttpGet("{id}")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         //[AllowAnonymous]
-        public ActionResult<IngredientDto> GetIngredient([FromRoute] int id)
+        public ActionResult<DishDto> GetDish([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IngredientDto ingredientDto = _ingredientService.GetById(id);
+            DishDto dishDto = _dishService.GetById(id);
 
-            if (ingredientDto == null)
+            if (dishDto == null)
             {
                 return NotFound();
             }
 
-            return Ok(ingredientDto);
+            return Ok(dishDto);
         }
 
-        // PUT: api/Categories/5
+        // PUT: api/Dishes/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
         //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
-        public IActionResult PutIngredient([FromRoute] int id, [FromBody] IngredientDto ingredientDto)
+        public IActionResult PutDish([FromRoute] int id, [FromBody] DishDto dishDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != ingredientDto.IngredientId)
+            if (id != dishDto.DishId)
             {
                 return BadRequest();
             }
 
-            ingredientDto = _ingredientService.Save(id, ingredientDto);
+            dishDto = _dishService.Save(id, dishDto);
 
-            if (!IngredientExists(id))
+            if (!DishExists(id))
             {
                 return NotFound();
             }
 
-            return Ok(ingredientDto);
+            return Ok(dishDto);
         }
 
-        // POST: api/Ingredients
+        // POST: api/Dishes
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
         //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
-        public ActionResult<IngredientDto> PostIngredient([FromBody] IngredientDto ingredientDto)
+        public ActionResult<DishDto> PostDish([FromBody] DishDto dishDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            IngredientDto newIngredient = _ingredientService.Save(0, ingredientDto);
+            DishDto newDish = _dishService.Save(0, dishDto);
 
-            return CreatedAtAction("GetIngredient", new { id = newIngredient.IngredientId }, newIngredient);
+            return CreatedAtAction("GetDish", new { id = newDish.DishId }, newDish);
         }
 
-        // DELETE: api/Ingredients/5
+        // DELETE: api/Dishes/5
         [HttpDelete("{id}")]
         //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
-        public ActionResult<IngredientDto> DeleteIngredient([FromRoute] int id)
+        public ActionResult<DishDto> DeleteDish([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (!IngredientExists(id))
+            if (!DishExists(id))
             {
                 return NotFound();
             }
 
-            _ingredientService.Delete(id);
+            _dishService.Delete(id);
 
             return Ok();
         }
 
-        private bool IngredientExists(int id)
+        private bool DishExists(int id)
         {
-            return _ingredientService.EntityExists(id);
+            return _dishService.EntityExists(id);
         }
     }
 }

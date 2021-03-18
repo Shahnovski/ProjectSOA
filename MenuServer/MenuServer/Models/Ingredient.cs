@@ -9,11 +9,13 @@ namespace MenuServer.Models
     public class Ingredient
     {
         [Key]
-        public int Id { get; set; }
+        public int IngredientId { get; set; }
+        
         [Required]
-        public string Name { get; set; }
+        public string IngredientName { get; set; }
+        
         [Required]
-        public int IngerientCode { get; set; }
+        public int IngredientCode { get; set; }
 
         public IEnumerable<Dish_Ingredient> IngredientDish { get; set; }
 

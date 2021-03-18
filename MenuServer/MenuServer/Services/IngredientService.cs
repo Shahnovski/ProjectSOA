@@ -1,0 +1,66 @@
+﻿using AutoMapper;
+using MenuServer.Dtos;
+using MenuServer.Models;
+using MenuServer.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MenuServer.Services
+{
+    public class IngredientService : IIngredientService
+    {
+        private readonly IIngredientRepository _ingredientRepository;
+        private readonly IMapper _mapper;
+
+        public IngredientService(
+            IIngredientRepository ingredientRepository,
+            IMapper mapper
+            )
+        {
+            _ingredientRepository = ingredientRepository;
+            _mapper = mapper;
+        }
+
+        // TODO: Серега, как делоть, другой сервис дергать нид!!!
+        public IngredientDto GetById(int id)
+        {
+            return _mapper.Map<IngredientDto>(_ingredientRepository.FindById(id));
+        }
+        
+        public IngredientDto Save(int id, IngredientDto dto)
+        {
+            Ingredient ingredient = _mapper.Map<Ingredient>(dto);
+
+            if (id != 0)
+            {
+                ingredient.IngredientId = id;
+                _ingredientRepository.Update(ingredient);
+            } else
+            {
+                _ingredientRepository.Add(ingredient);
+                ingredient = _ingredientRepository.Save(ingredient);
+            }
+
+            return _mapper.Map<IngredientDto>(ingredient);
+        }
+
+        public void Delete(int id)
+        {
+            Ingredient ingredient = _ingredientRepository.FindById(id);
+            _ingredientRepository.Delete(ingredient);
+            _ingredientRepository.Save(ingredient);
+        }
+
+        public bool EntityExists(int id)
+        {
+            return _ingredientRepository.EntityExists(id);
+        }
+
+        public IEnumerable<IngredientDto> GetAll()
+        {
+            return _ingredientRepository.FindAll().Select(c => _mapper.Map<IngredientDto>(c));
+        }
+    }
+}

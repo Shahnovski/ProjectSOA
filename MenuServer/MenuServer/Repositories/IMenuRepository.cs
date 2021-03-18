@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace MenuServer.Repositories
 {
-    public interface IDishRepository : IDataRepository<Dish>
+    public interface IMenuRepository : IDataRepository<Menu>
     {
-        IEnumerable<Dish> FindAll();
+        IEnumerable<Menu> FindAll();
 
-        Dish FindById(int id);
-
-        bool EntityExists(int id);
+        Menu FindById(int id);
     }
 }

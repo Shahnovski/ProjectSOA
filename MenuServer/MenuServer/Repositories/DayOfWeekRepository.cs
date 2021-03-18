@@ -13,12 +13,12 @@ namespace MenuServer.Repositories
 
         public IEnumerable<Models.DayOfWeek> FindAll()
         {
-            return _context.DayOfWeek.OrderBy(a => a.Id);
+            return _context.DayOfWeek.OrderBy(a => a.DayOfWeekId);
         }
 
         public Models.DayOfWeek FindById(int id)
         {
-            return _context.DayOfWeek.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            return _context.DayOfWeek.AsNoTracking().FirstOrDefault(a => a.DayOfWeekId == id);
         }
 
         public void Add(Models.DayOfWeek entity)
@@ -45,7 +45,7 @@ namespace MenuServer.Repositories
 
         public bool EntityExists(int id)
         {
-            return _context.DayOfWeek.Any(a => a.Id == id);
+            return _context.DayOfWeek.Any(a => a.DayOfWeekId == id);
         }
     }
 }

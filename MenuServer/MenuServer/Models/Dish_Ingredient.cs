@@ -15,6 +15,7 @@ namespace MenuServer.Models
         [Key]
         public int IngredientId { get; set; }
         public Ingredient Ingredient { get; set; }
+        
         [Required]
         public int AmountOfIngredient { get; set; }
     }

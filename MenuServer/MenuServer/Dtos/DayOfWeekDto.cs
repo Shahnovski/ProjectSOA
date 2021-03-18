@@ -7,8 +7,8 @@ namespace MenuServer.Dtos
 {
     public class DayOfWeekDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int DayOfWeekId { get; set; }
+        public string DayOfWeekName { get; set; }
         public int MenuId { get; set; }
     }
 }

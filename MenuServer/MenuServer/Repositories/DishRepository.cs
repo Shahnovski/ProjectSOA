@@ -13,7 +13,7 @@ namespace MenuServer.Repositories
         public IEnumerable<Dish> FindAll()
         {
             return _context.Dish
-                .OrderBy(g => g.Name)
+                .OrderBy(g => g.DishName)
                 .Include(g => g.DishIngredients)
                 .ThenInclude(gp => gp.Ingredient);
         }
@@ -21,10 +21,10 @@ namespace MenuServer.Repositories
         public Dish FindById(int id)
         {
             return _context.Dish
-                .OrderBy(g => g.Name)
+                .OrderBy(g => g.DishName)
                 .Include(g => g.DishIngredients)
                 .ThenInclude(gp => gp.Ingredient)
-                .FirstOrDefault(g => g.Id == id);
+                .FirstOrDefault(g => g.DishId == id);
         }
         public void Add(Dish entity)
         {
@@ -50,7 +50,7 @@ namespace MenuServer.Repositories
 
         public bool EntityExists(int id)
         {
-            return _context.Dish.Any(g => g.Id == id);
+            return _context.Dish.Any(g => g.DishId == id);
         }
     }
 }

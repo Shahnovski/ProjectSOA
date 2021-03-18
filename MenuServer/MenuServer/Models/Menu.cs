@@ -9,7 +9,7 @@ namespace MenuServer.Models
     public class Menu
     {
         [Key]
-        public int Id { get; set; }
+        public int MenuId { get; set; }
 
         public IEnumerable<Dish> Dishes { get; set; }
         public IEnumerable<TimeOfDay> Time { get; set; }

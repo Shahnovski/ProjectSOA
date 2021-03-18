@@ -9,9 +9,11 @@ namespace MenuServer.Models
     public class TimeOfDay
     {
         [Key]
-        public int Id { get; set; }
+        public int TimeOfDayId { get; set; }
+        
         [Required]
-        public string Name { get; set; }
+        public string TimeOfDayName { get; set; }
+        
         [Required]
         public int MenuId { get; set; }
         public Menu Menu { get; set; }

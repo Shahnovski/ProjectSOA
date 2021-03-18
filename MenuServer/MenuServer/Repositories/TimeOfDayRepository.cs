@@ -13,12 +13,12 @@ namespace MenuServer.Repositories
 
         public IEnumerable<Models.TimeOfDay> FindAll()
         {
-            return _context.TimeOfDay.OrderBy(a => a.Id);
+            return _context.TimeOfDay.OrderBy(a => a.TimeOfDayId);
         }
 
         public Models.TimeOfDay FindById(int id)
         {
-            return _context.TimeOfDay.AsNoTracking().FirstOrDefault(a => a.Id == id);
+            return _context.TimeOfDay.AsNoTracking().FirstOrDefault(a => a.TimeOfDayId == id);
         }
 
         public void Add(Models.TimeOfDay entity)
@@ -45,7 +45,7 @@ namespace MenuServer.Repositories
 
         public bool EntityExists(int id)
         {
-            return _context.TimeOfDay.Any(a => a.Id == id);
+            return _context.TimeOfDay.Any(a => a.TimeOfDayId == id);
         }
     }
 }

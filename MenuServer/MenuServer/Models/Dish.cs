@@ -9,9 +9,10 @@ namespace MenuServer.Models
     public class Dish
     {
         [Key]
-        public int Id { get; set; }
+        public int DishId { get; set; }
+        
         [Required]
-        public string Name { get; set; }
+        public string DishName { get; set; }
        
         [Required]
         public IEnumerable<Dish_Ingredient> DishIngredients { get; set; }
@@ -20,7 +21,6 @@ namespace MenuServer.Models
         {
             DishIngredients = new List<Dish_Ingredient>();
         }
-
 
         [Required]
         public int MenuId { get; set; }

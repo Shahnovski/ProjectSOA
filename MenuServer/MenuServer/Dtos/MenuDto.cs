@@ -8,16 +8,13 @@ namespace MenuServer.Dtos
 {
     public class MenuDto
     {
-        
-        public int Id { get; set; }
+        public int MenuId { get; set; }
 
         public IEnumerable<Dish> Dishes { get; set; }
         
-
         public MenuDto()
         {
             Dishes = new List<Dish>();
-           
         }
     }
 }

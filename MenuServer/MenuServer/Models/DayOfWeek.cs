@@ -9,9 +9,10 @@ namespace MenuServer.Models
     public class DayOfWeek
     {
         [Key]
-        public int Id { get; set; }
+        public int DayOfWeekId { get; set; }
+        
         [Required]
-        public string Name { get; set; }
+        public string DayOfWeekName { get; set; }
 
         [Required]
         public int MenuId { get; set; }
