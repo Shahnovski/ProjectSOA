@@ -1,6 +1,5 @@
 
-export class BankAccount {
-  accountId: number = 0;
+export class Account {
   accountNumber: string = "";
   accountMoney: number = 0;
 }

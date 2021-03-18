@@ -9,6 +9,8 @@ namespace BankServer.Dtos
     {
         public int AccountId { get; set; }
 
+        public string AccountNumber { get; set; }
+
         public decimal AccountMoney { get; set; } = 0;
     }
 }

@@ -21,6 +21,11 @@ namespace BankServer.Repositories
             return _context.Account.AsNoTracking().FirstOrDefault(a => a.AccountId == id);
         }
 
+        public Account FindByNumber(string number)
+        {
+            return _context.Account.AsNoTracking().FirstOrDefault(a => a.AccountNumber.Equals(number));
+        }
+
         public void Add(Account entity)
         {
             _context.Set<Account>().Add(entity);

@@ -12,6 +12,8 @@ namespace BankServer.Repositories
 
         Account FindById(int id);
 
+        Account FindByNumber(string number);
+
         bool EntityExists(int id);
     }
 }

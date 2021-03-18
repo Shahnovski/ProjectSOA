@@ -32,7 +32,9 @@
       </tbody>
     </table>
 
+    <br>
     <div class="modal-footer">
+      <button  class="btn btn-info mr-auto" [disabled]="cartItems.length == 0" (click)="moveToPayment()">Pay</button>
       <button  class="btn btn-primary mr-2" (click)="modal.close('Cancel')">Close</button>
     </div>
 

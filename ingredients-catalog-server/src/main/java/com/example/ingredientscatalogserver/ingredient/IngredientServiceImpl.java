@@ -20,6 +20,11 @@ public class IngredientServiceImpl implements IngredientService{
     }
 
     @Override
+    public List<IngredientDTO> getIngredientListByCodes(List<Long> codes) {
+        return ingredientMapper.toIngredientDTOs(ingredientRepository.findByIngredientCodeIn(codes));
+    }
+
+    @Override
     public IngredientDTO getIngredientById(Long id) {
         return ingredientMapper.toIngredientDTO(ingredientRepository.findById(id)
                 .orElseThrow(IngredientNotFoundException::new));
