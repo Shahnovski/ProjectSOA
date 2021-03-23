@@ -14,17 +14,17 @@ namespace MenuServer.Repositories
         public IEnumerable<Menu> FindAll()
         {
             return _context.Menu
-                .Include(g => g.Dishes)
-                .Include(g => g.Time)
-                .Include(g => g.Week);
+                .Include(g => g.Dish)
+                .Include(g => g.TimeOfDay)
+                .Include(g => g.DayOfWeek);
         }
 
         public Menu FindById(int id)
         {
             return _context.Menu
-                .Include(g => g.Dishes)
-                .Include(g => g.Time)
-                .Include(g => g.Week)
+                .Include(g => g.Dish)
+                .Include(g => g.TimeOfDay)
+                .Include(g => g.DayOfWeek)
                 .FirstOrDefault(g => g.MenuId == id);
         }
         public void Add(Menu entity)

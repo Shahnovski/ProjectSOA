@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using MenuServer.Models;
+using MenuServer.Repositories;
+using MenuServer.Services;
 
 namespace MenuServer
 {
@@ -42,6 +44,16 @@ namespace MenuServer
             services.AddDbContext<MenuServerContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MenuServerContext")));
 
+            services.AddScoped(typeof(IDayOfWeekRepository), typeof(DayOfWeekRepository));
+            services.AddScoped(typeof(ITimeOfDayRepository), typeof(TimeOfDayRepository));
+            services.AddScoped(typeof(IDishRepository), typeof(DishRepository));
+            services.AddScoped(typeof(IDishIngredientRepository), typeof(DishIngredientRepository));
+            services.AddScoped(typeof(IMenuRepository), typeof(MenuRepository));
+            services.AddScoped(typeof(IIngredientRepository), typeof(IngredientRepository));
+
+            services.AddScoped(typeof(IIngredientService), typeof(IngredientService));
+            services.AddScoped(typeof(IDishService), typeof(DishService));
+            services.AddScoped(typeof(IMenuService), typeof(MenuService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

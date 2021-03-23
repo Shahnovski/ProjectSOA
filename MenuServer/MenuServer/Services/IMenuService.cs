@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MenuServer.Dtos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MenuServer.Services
 {
-    interface IMenuService
+    public interface IMenuService : IDataService<MenuDto>
     {
-        //TODO: Делай давай!
+        IEnumerable<MenuDto> GetAll();
     }
 }

@@ -17,13 +17,17 @@ namespace MenuServer.Models
         [Required]
         public IEnumerable<Dish_Ingredient> DishIngredients { get; set; }
 
+        [Required]
+        public IEnumerable<Menu> Menus { get; set; }
+
         public Dish()
         {
             DishIngredients = new List<Dish_Ingredient>();
+            Menus = new List<Menu>();
         }
 
-        [Required]
+        /*[Required]
         public int MenuId { get; set; }
-        public Menu Menu { get; set; }
+        public Menu Menu { get; set; }*/
     }
 }

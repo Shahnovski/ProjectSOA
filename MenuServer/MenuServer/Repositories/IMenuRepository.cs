@@ -11,5 +11,7 @@ namespace MenuServer.Repositories
         IEnumerable<Menu> FindAll();
 
         Menu FindById(int id);
+
+        bool EntityExists(int id);
     }
 }

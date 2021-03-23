@@ -14,8 +14,16 @@ namespace MenuServer.Models
         [Required]
         public string DayOfWeekName { get; set; }
 
-        [Required]
+        /*[Required]
         public int MenuId { get; set; }
-        public Menu Menu { get; set; }
+        public Menu Menu { get; set; }*/
+        [Required]
+        public IEnumerable<Menu> Menu { get; set; }
+
+        public DayOfWeek()
+        {
+
+            Menu = new List<Menu>();
+        }
     }
 }
