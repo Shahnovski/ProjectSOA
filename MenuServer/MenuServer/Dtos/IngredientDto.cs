@@ -9,7 +9,7 @@ namespace MenuServer.Dtos
     {
         public int IngredientId { get; set; }
         public string IngredientName { get; set; }
-        public int IngerientCode { get; set; }
+        public int IngredientCode { get; set; }
 
         public double IngredientCost { get; set; }
         public double IngredientCalories { get; set; }

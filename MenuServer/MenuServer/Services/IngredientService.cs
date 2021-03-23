@@ -40,9 +40,8 @@ namespace MenuServer.Services
             } else
             {
                 _ingredientRepository.Add(ingredient);
-                ingredient = _ingredientRepository.Save(ingredient);
             }
-
+            ingredient = _ingredientRepository.Save(ingredient);
             return _mapper.Map<IngredientDto>(ingredient);
         }
 
