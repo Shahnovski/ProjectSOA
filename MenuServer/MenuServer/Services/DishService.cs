@@ -67,26 +67,25 @@ namespace MenuServer.Services
             return _dishRepository.EntityExists(id);
         }
 
-        // TODO: Нужна ли возможность изменять ингредиенты в составе блюда?
         private void ChangeDishIngredients(Dish dish, DishDto dto)
         {
             IEnumerable<Dish_Ingredient> dishIngredients = _dishIngredientRepository.FindByDishId(dish.DishId);
             if (dishIngredients.Count() == 0)
             {
-                foreach (IngredientDto dishIngredient in dto.Ingredients)
+                foreach (IngredientPlusDto dishIngredient in dto.Ingredients)
                 {
                     Ingredient ingredient = _ingredientRepository.FindById(dishIngredient.IngredientId);
-                    Dish_Ingredient newDishIngredient = new Dish_Ingredient { Dish = dish, Ingredient = ingredient };
+                    Dish_Ingredient newDishIngredient = new Dish_Ingredient { Dish = dish, Ingredient = ingredient, AmountOfIngredient = dishIngredient.Amount }; 
                     _dishIngredientRepository.Add(newDishIngredient);
                 }
             } else
             {
-                foreach (IngredientDto dishIngredient in dto.Ingredients)
+                foreach (IngredientPlusDto dishIngredient in dto.Ingredients)
                 {
                     if (dishIngredients.All(gc => gc.IngredientId != dishIngredient.IngredientId))
                     {
                         Ingredient ingredient = _ingredientRepository.FindById(dishIngredient.IngredientId);
-                        Dish_Ingredient newDishIngredient = new Dish_Ingredient { Dish = dish, Ingredient = ingredient };
+                        Dish_Ingredient newDishIngredient = new Dish_Ingredient { Dish = dish, Ingredient = ingredient, AmountOfIngredient = dishIngredient.Amount };
                         _dishIngredientRepository.Add(newDishIngredient);
                     }
                 }

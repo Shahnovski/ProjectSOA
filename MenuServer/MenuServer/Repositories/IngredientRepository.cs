@@ -47,5 +47,10 @@ namespace MenuServer.Repositories
         {
             return _context.Ingredient.Any(a => a.IngredientId == id);
         }
+
+        public bool CodeExists(int code)
+        {
+            return _context.Ingredient.Any(a => a.IngredientCode == code);
+        }
     }
 }

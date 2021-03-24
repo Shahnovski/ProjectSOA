@@ -13,5 +13,7 @@ namespace MenuServer.Repositories
         Ingredient FindById(int id);
 
         bool EntityExists(int id);
+
+        bool CodeExists(int code);
     }
 }

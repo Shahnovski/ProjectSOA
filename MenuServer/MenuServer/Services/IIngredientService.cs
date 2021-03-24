@@ -9,6 +9,7 @@ namespace MenuServer.Services
     public interface IIngredientService : IDataService<IngredientDto>
     {
         IEnumerable<IngredientDto> GetAll();
+        bool CodeExists(int code);
         //IEnumerable<IngredientService> GetByDishId(int dishId);
     }
 }

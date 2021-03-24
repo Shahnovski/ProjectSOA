@@ -32,6 +32,22 @@ namespace MenuServer.Models
                 .HasForeignKey(gc => gc.IngredientId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
+
+            modelBuilder.Entity<Menu>().HasAlternateKey(rm => new { rm.DayOfWeekId, rm.TimeOfDayId });
+
+            modelBuilder.Entity<Menu>()
+             .HasOne(rm => rm.DayOfWeek)
+             .WithMany(r => r.Menu)
+             .HasForeignKey(rm => rm.DayOfWeekId)
+             .OnDelete(DeleteBehavior.Cascade)
+             .IsRequired();
+
+            modelBuilder.Entity<Menu>()
+            .HasOne(rm => rm.TimeOfDay)
+            .WithMany(r => r.Menu)
+            .HasForeignKey(rm => rm.TimeOfDayId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
         }
         public DbSet<MenuServer.Models.Ingredient> Ingredient { get; set; }
         public DbSet<MenuServer.Models.DayOfWeek> DayOfWeek { get; set; }

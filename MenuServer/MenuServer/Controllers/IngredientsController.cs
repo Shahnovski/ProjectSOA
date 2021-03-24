@@ -63,9 +63,19 @@ namespace MenuServer.Controllers
                 return BadRequest(ModelState);
             }
 
+            IngredientDto ingredientDto2 = _ingredientService.GetById(id);
+
             if (id != ingredientDto.IngredientId)
             {
                 return BadRequest();
+            }
+
+            if (ingredientDto.IngredientCode != ingredientDto2.IngredientCode)
+            {
+                if (CodeExists(ingredientDto.IngredientCode))
+                {
+                    return BadRequest("Ингредиент с таким кодом уже существует");
+                }
             }
 
             ingredientDto = _ingredientService.Save(id, ingredientDto);
@@ -88,6 +98,11 @@ namespace MenuServer.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            if (CodeExists(ingredientDto.IngredientCode))
+            {
+                return BadRequest("Ингредиент с таким кодом уже существует");
             }
 
             IngredientDto newIngredient = _ingredientService.Save(0, ingredientDto);
@@ -118,6 +133,11 @@ namespace MenuServer.Controllers
         private bool IngredientExists(int id)
         {
             return _ingredientService.EntityExists(id);
+        }
+
+        private bool CodeExists(int code)
+        {
+            return _ingredientService.CodeExists(code);
         }
     }
 }

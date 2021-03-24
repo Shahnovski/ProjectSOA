@@ -41,6 +41,7 @@ namespace MenuServer.Services
             {
                 _ingredientRepository.Add(ingredient);
             }
+
             ingredient = _ingredientRepository.Save(ingredient);
             return _mapper.Map<IngredientDto>(ingredient);
         }
@@ -55,6 +56,11 @@ namespace MenuServer.Services
         public bool EntityExists(int id)
         {
             return _ingredientRepository.EntityExists(id);
+        }
+
+        public bool CodeExists(int code)
+        {
+            return _ingredientRepository.CodeExists(code);
         }
 
         public IEnumerable<IngredientDto> GetAll()
