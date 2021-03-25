@@ -13,12 +13,12 @@ namespace AuthServer.Data
 
         public static AuthorizationPolicy AdminPolicy()
         {
-            return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().RequireRole(Admin, User).Build();
+            return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().RequireRole(Admin).Build();
         }
 
         public static AuthorizationPolicy UserPolicy()
         {
-            return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().RequireRole(User).Build();
+            return new AuthorizationPolicyBuilder().RequireAuthenticatedUser().RequireRole(User, Admin).Build();
         }
     }
 }
