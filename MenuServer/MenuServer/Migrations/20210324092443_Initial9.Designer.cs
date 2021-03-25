@@ -3,14 +3,16 @@ using MenuServer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MenuServer.Migrations
 {
     [DbContext(typeof(MenuServerContext))]
-    partial class MenuServerContextModelSnapshot : ModelSnapshot
+    [Migration("20210324092443_Initial9")]
+    partial class Initial9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
