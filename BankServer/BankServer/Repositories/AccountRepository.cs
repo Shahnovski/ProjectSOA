@@ -11,9 +11,9 @@ namespace BankServer.Repositories
     {
         public AccountRepository(BankServerContext context) : base(context) { }
 
-        public IEnumerable<Account> FindAll()
+        public IEnumerable<Account> FindByUsername(string username)
         {
-            return _context.Account.OrderBy(a => a.AccountId);
+            return _context.Account.Where(a => a.AccountUserName.Equals(username)).OrderBy(a => a.AccountId);
         }
 
         public Account FindById(int id)

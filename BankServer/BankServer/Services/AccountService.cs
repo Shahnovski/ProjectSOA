@@ -20,9 +20,9 @@ namespace BankServer.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<AccountDto> GetAll()
+        public IEnumerable<AccountDto> GetByUsername(string username)
         {
-            return _accountRepository.FindAll().Select(a => _mapper.Map<AccountDto>(a));
+            return _accountRepository.FindByUsername(username).Select(a => _mapper.Map<AccountDto>(a));
         }
 
         public AccountDto GetById(int id)

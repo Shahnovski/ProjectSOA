@@ -9,6 +9,9 @@ using BankServer.Models;
 using BankServer.Services;
 using BankServer.Dtos;
 using BankServer.Exceptions;
+using Microsoft.AspNetCore.Authorization;
+using BankServer.Data;
+using System.Security.Claims;
 
 namespace BankServer.Controllers
 {
@@ -24,15 +27,17 @@ namespace BankServer.Controllers
             _accountService = accountService;
         }
 
-        // GET: api/Accounts
-        [HttpGet]
-        public IEnumerable<AccountDto> GetAccount()
+        // GET: api/Accounts/byUsername/username
+        [HttpGet("byUsername/{username}")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
+        public IEnumerable<AccountDto> GetAccountsByUsername([FromRoute] string username)
         {
-            return _accountService.GetAll();
+            return _accountService.GetByUsername(username);
         }
 
         // GET: api/Accounts/5
         [HttpGet("{id}")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<AccountDto> GetAccount([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -54,6 +59,7 @@ namespace BankServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IActionResult PutAccount([FromRoute] int id, [FromBody] AccountDto accountDto)
         {
             if (!ModelState.IsValid)
@@ -87,6 +93,7 @@ namespace BankServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("byNumber/{number}")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IActionResult PutAccountByNumber([FromRoute] string number, [FromBody] AccountDto accountDto)
         {
             if (!ModelState.IsValid)
@@ -127,6 +134,7 @@ namespace BankServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<AccountDto> PostAccount([FromBody] AccountDto accountDto)
         {
             if (!ModelState.IsValid)
@@ -134,6 +142,7 @@ namespace BankServer.Controllers
                 return BadRequest(ModelState);
             }
 
+            accountDto.AccountUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             AccountDto newAccount = _accountService.Save(0, accountDto);
 
             return CreatedAtAction("GetAccount", new { id = newAccount.AccountId }, newAccount);
@@ -141,6 +150,7 @@ namespace BankServer.Controllers
 
         // DELETE: api/Accounts/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<AccountDto> DeleteAccount([FromRoute] int id)
         {
             if (!ModelState.IsValid)

@@ -14,6 +14,10 @@ using Microsoft.Extensions.Logging;
 using BankServer.Models;
 using BankServer.Repositories;
 using BankServer.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using BankServer.Data;
 
 namespace BankServer
 {
@@ -45,6 +49,29 @@ namespace BankServer
 
             services.AddScoped(typeof(IAccountService), typeof(AccountService));
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:SecretKey"])),
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
+            services.AddAuthorization(config =>
+            {
+                config.AddPolicy(Policies.Admin, Policies.AdminPolicy());
+                config.AddPolicy(Policies.User, Policies.UserPolicy());
+            });
+
 
         }
 
@@ -72,6 +99,9 @@ namespace BankServer
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            app.UseAuthentication();
+            app.UseAuthorization();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace BankServer.Services
 {
     public interface IAccountService : IDataService<AccountDto>
     {
-        IEnumerable<AccountDto> GetAll();
+        IEnumerable<AccountDto> GetByUsername(string username);
 
         AccountDto GetByNumber(string number);
     }

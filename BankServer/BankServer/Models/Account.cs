@@ -16,5 +16,8 @@ namespace BankServer.Models
 
         [Required]
         public decimal AccountMoney { get; set; } = 0;
+
+        [Required]
+        public string AccountUserName { get; set; }
     }
 }

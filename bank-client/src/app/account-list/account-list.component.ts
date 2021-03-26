@@ -3,6 +3,7 @@ import {BankAccount} from "../bank-account";
 import {AccountService} from "../services/account.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {AccountEditComponent} from "../account-edit/account-edit.component";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-account-list',
@@ -14,14 +15,17 @@ export class AccountListComponent implements OnInit {
   accounts: BankAccount[] = [];
   account: BankAccount = new BankAccount();
 
-  constructor(private accountService: AccountService, private modalService: NgbModal) { }
+  constructor(
+    private accountService: AccountService,
+    private authService: AuthService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.loadAccounts();
   }
 
   loadAccounts() {
-    this.accountService.getAccountList().subscribe(
+    this.accountService.getAccountList(this.authService.getUserName()).subscribe(
       data => {
         this.accounts = data;
       },

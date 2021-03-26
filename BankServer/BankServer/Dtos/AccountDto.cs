@@ -12,5 +12,7 @@ namespace BankServer.Dtos
         public string AccountNumber { get; set; }
 
         public decimal AccountMoney { get; set; } = 0;
+
+        public string AccountUserName { get; set; }
     }
 }

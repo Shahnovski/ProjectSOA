@@ -8,7 +8,7 @@ namespace BankServer.Repositories
 {
     public interface IAccountRepository : IDataRepository<Account>
     {
-        IEnumerable<Account> FindAll();
+        IEnumerable<Account> FindByUsername(string username);
 
         Account FindById(int id);
 
