@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MenuServer.Services
+﻿namespace MenuServer.Services
 {
     public interface IDataService<T> where T : class
     {

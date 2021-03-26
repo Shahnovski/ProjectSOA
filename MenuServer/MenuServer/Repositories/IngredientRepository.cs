@@ -1,9 +1,7 @@
 ﻿using MenuServer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Repositories
 {
@@ -16,9 +14,12 @@ namespace MenuServer.Repositories
             return _context.Ingredient.OrderBy(a => a.IngredientId);
         }
 
-        public Ingredient FindById(int id)
+        public Ingredient FindById(int id, bool trackable)
         {
-            return _context.Ingredient.AsNoTracking().FirstOrDefault(a => a.IngredientId == id);
+            if (trackable)
+                return _context.Ingredient.FirstOrDefault(a => a.IngredientId == id);
+            else
+                return _context.Ingredient.AsNoTracking().FirstOrDefault(a => a.IngredientId == id);
         }
 
         public void Add(Ingredient entity)

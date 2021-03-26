@@ -2,10 +2,8 @@
 using MenuServer.Dtos;
 using MenuServer.Models;
 using MenuServer.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Services
 {
@@ -26,7 +24,7 @@ namespace MenuServer.Services
         // TODO: Серега, как делоть, другой сервис дергать нид!!!
         public IngredientDto GetById(int id)
         {
-            return _mapper.Map<IngredientDto>(_ingredientRepository.FindById(id));
+            return _mapper.Map<IngredientDto>(_ingredientRepository.FindById(id, false));
         }
         
         public IngredientDto Save(int id, IngredientDto dto)
@@ -48,7 +46,7 @@ namespace MenuServer.Services
 
         public void Delete(int id)
         {
-            Ingredient ingredient = _ingredientRepository.FindById(id);
+            Ingredient ingredient = _ingredientRepository.FindById(id, false);
             _ingredientRepository.Delete(ingredient);
             _ingredientRepository.Save(ingredient);
         }

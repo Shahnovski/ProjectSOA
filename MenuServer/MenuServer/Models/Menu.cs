@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MenuServer.Models
 {
@@ -10,7 +6,6 @@ namespace MenuServer.Models
     {
         [Key]
         public int MenuId { get; set; }
-
 
         [Required]
         public int TimeOfDayId { get; set; }
@@ -23,16 +18,5 @@ namespace MenuServer.Models
         [Required]
         public int DishId { get; set; }
         public Dish Dish { get; set; }
-
-        //public IEnumerable<Dish> Dishes { get; set; }
-        //public IEnumerable<TimeOfDay> Time { get; set; }
-        //public IEnumerable<DayOfWeek> Week { get; set; }
-
-        public Menu()
-        {
-            //Dishes = new List<Dish>();
-            //Time = new List<TimeOfDay>();
-            //Week = new List<DayOfWeek>();
-        }
     }
 }

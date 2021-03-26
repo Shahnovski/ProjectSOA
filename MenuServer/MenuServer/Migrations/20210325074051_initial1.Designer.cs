@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MenuServer.Migrations
 {
     [DbContext(typeof(MenuServerContext))]
-    [Migration("20210323053419_Initial7")]
-    partial class Initial7
+    [Migration("20210325074051_initial1")]
+    partial class initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -107,7 +107,7 @@ namespace MenuServer.Migrations
 
                     b.HasKey("MenuId");
 
-                    b.HasIndex("DayOfWeekId");
+                    b.HasAlternateKey("DayOfWeekId", "TimeOfDayId");
 
                     b.HasIndex("DishId");
 
@@ -156,7 +156,7 @@ namespace MenuServer.Migrations
                         .IsRequired();
 
                     b.HasOne("MenuServer.Models.Dish", "Dish")
-                        .WithMany("Menus")
+                        .WithMany()
                         .HasForeignKey("DishId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

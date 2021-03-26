@@ -1,15 +1,14 @@
 ﻿using MenuServer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Repositories
 {
     public class DishRepository : BaseRepository, IDishRepository
     {
         public DishRepository(MenuServerContext context) : base(context) { }
+
         public IEnumerable<Dish> FindAll()
         {
             return _context.Dish
@@ -26,6 +25,7 @@ namespace MenuServer.Repositories
                 .ThenInclude(gp => gp.Ingredient)
                 .FirstOrDefault(g => g.DishId == id);
         }
+
         public void Add(Dish entity)
         {
             _context.Set<Dish>().Add(entity);

@@ -1,9 +1,7 @@
 ﻿using MenuServer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Repositories
 {
@@ -11,33 +9,33 @@ namespace MenuServer.Repositories
     {
         public DayOfWeekRepository(MenuServerContext context) : base(context) { }
 
-        public IEnumerable<Models.DayOfWeek> FindAll()
+        public IEnumerable<DayOfWeek> FindAll()
         {
             return _context.DayOfWeek.OrderBy(a => a.DayOfWeekId);
         }
 
-        public Models.DayOfWeek FindById(int id)
+        public DayOfWeek FindById(int id)
         {
             return _context.DayOfWeek.AsNoTracking().FirstOrDefault(a => a.DayOfWeekId == id);
         }
 
-        public void Add(Models.DayOfWeek entity)
+        public void Add(DayOfWeek entity)
         {
-            _context.Set<Models.DayOfWeek>().Add(entity);
+            _context.Set<DayOfWeek>().Add(entity);
         }
 
-        public void Update(Models.DayOfWeek entity)
+        public void Update(DayOfWeek entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.Set<Models.DayOfWeek>().Update(entity);
+            _context.Set<DayOfWeek>().Update(entity);
         }
 
-        public void Delete(Models.DayOfWeek entity)
+        public void Delete(DayOfWeek entity)
         {
-            _context.Set<Models.DayOfWeek>().Remove(entity);
+            _context.Set<DayOfWeek>().Remove(entity);
         }
 
-        public Models.DayOfWeek Save(Models.DayOfWeek entity)
+        public DayOfWeek Save(DayOfWeek entity)
         {
             _context.SaveChanges();
             return entity;

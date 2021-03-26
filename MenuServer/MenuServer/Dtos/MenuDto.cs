@@ -1,10 +1,4 @@
-﻿using MenuServer.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MenuServer.Dtos
+﻿namespace MenuServer.Dtos
 {
     public class MenuDto
     {
@@ -12,6 +6,5 @@ namespace MenuServer.Dtos
         public int DayOfWeekId { get; set; }
         public int DishId { get; set; }
         public int TimeOfDayId { get; set; }
-
     }
 }

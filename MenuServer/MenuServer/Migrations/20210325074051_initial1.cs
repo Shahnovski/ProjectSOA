@@ -2,10 +2,36 @@
 
 namespace MenuServer.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "DayOfWeek",
+                columns: table => new
+                {
+                    DayOfWeekId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DayOfWeekName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DayOfWeek", x => x.DayOfWeekId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dish",
+                columns: table => new
+                {
+                    DishId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DishName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dish", x => x.DishId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Ingredient",
                 columns: table => new
@@ -21,75 +47,16 @@ namespace MenuServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menu",
-                columns: table => new
-                {
-                    MenuId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menu", x => x.MenuId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DayOfWeek",
-                columns: table => new
-                {
-                    DayOfWeekId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DayOfWeekName = table.Column<string>(nullable: false),
-                    MenuId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DayOfWeek", x => x.DayOfWeekId);
-                    table.ForeignKey(
-                        name: "FK_DayOfWeek_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "MenuId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Dish",
-                columns: table => new
-                {
-                    DishId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DishName = table.Column<string>(nullable: false),
-                    MenuId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dish", x => x.DishId);
-                    table.ForeignKey(
-                        name: "FK_Dish_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "MenuId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TimeOfDay",
                 columns: table => new
                 {
                     TimeOfDayId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TimeOfDayName = table.Column<string>(nullable: false),
-                    MenuId = table.Column<int>(nullable: false)
+                    TimeOfDayName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TimeOfDay", x => x.TimeOfDayId);
-                    table.ForeignKey(
-                        name: "FK_TimeOfDay_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "MenuId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,15 +84,39 @@ namespace MenuServer.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_DayOfWeek_MenuId",
-                table: "DayOfWeek",
-                column: "MenuId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Dish_MenuId",
-                table: "Dish",
-                column: "MenuId");
+            migrationBuilder.CreateTable(
+                name: "Menu",
+                columns: table => new
+                {
+                    MenuId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TimeOfDayId = table.Column<int>(nullable: false),
+                    DayOfWeekId = table.Column<int>(nullable: false),
+                    DishId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menu", x => x.MenuId);
+                    table.UniqueConstraint("AK_Menu_DayOfWeekId_TimeOfDayId", x => new { x.DayOfWeekId, x.TimeOfDayId });
+                    table.ForeignKey(
+                        name: "FK_Menu_DayOfWeek_DayOfWeekId",
+                        column: x => x.DayOfWeekId,
+                        principalTable: "DayOfWeek",
+                        principalColumn: "DayOfWeekId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Menu_Dish_DishId",
+                        column: x => x.DishId,
+                        principalTable: "Dish",
+                        principalColumn: "DishId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Menu_TimeOfDay_TimeOfDayId",
+                        column: x => x.TimeOfDayId,
+                        principalTable: "TimeOfDay",
+                        principalColumn: "TimeOfDayId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Dish_Ingredient_IngredientId",
@@ -133,30 +124,35 @@ namespace MenuServer.Migrations
                 column: "IngredientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeOfDay_MenuId",
-                table: "TimeOfDay",
-                column: "MenuId");
+                name: "IX_Menu_DishId",
+                table: "Menu",
+                column: "DishId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menu_TimeOfDayId",
+                table: "Menu",
+                column: "TimeOfDayId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DayOfWeek");
-
-            migrationBuilder.DropTable(
                 name: "Dish_Ingredient");
 
             migrationBuilder.DropTable(
-                name: "TimeOfDay");
-
-            migrationBuilder.DropTable(
-                name: "Dish");
+                name: "Menu");
 
             migrationBuilder.DropTable(
                 name: "Ingredient");
 
             migrationBuilder.DropTable(
-                name: "Menu");
+                name: "DayOfWeek");
+
+            migrationBuilder.DropTable(
+                name: "Dish");
+
+            migrationBuilder.DropTable(
+                name: "TimeOfDay");
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using MenuServer.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Repositories
 {
@@ -11,33 +9,33 @@ namespace MenuServer.Repositories
     {
         public TimeOfDayRepository(MenuServerContext context) : base(context) { }
 
-        public IEnumerable<Models.TimeOfDay> FindAll()
+        public IEnumerable<TimeOfDay> FindAll()
         {
             return _context.TimeOfDay.OrderBy(a => a.TimeOfDayId);
         }
 
-        public Models.TimeOfDay FindById(int id)
+        public TimeOfDay FindById(int id)
         {
             return _context.TimeOfDay.AsNoTracking().FirstOrDefault(a => a.TimeOfDayId == id);
         }
 
-        public void Add(Models.TimeOfDay entity)
+        public void Add(TimeOfDay entity)
         {
-            _context.Set<Models.TimeOfDay>().Add(entity);
+            _context.Set<TimeOfDay>().Add(entity);
         }
 
-        public void Update(Models.TimeOfDay entity)
+        public void Update(TimeOfDay entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            _context.Set<Models.TimeOfDay>().Update(entity);
+            _context.Set<TimeOfDay>().Update(entity);
         }
 
-        public void Delete(Models.TimeOfDay entity)
+        public void Delete(TimeOfDay entity)
         {
-            _context.Set<Models.TimeOfDay>().Remove(entity);
+            _context.Set<TimeOfDay>().Remove(entity);
         }
 
-        public Models.TimeOfDay Save(Models.TimeOfDay entity)
+        public TimeOfDay Save(TimeOfDay entity)
         {
             _context.SaveChanges();
             return entity;

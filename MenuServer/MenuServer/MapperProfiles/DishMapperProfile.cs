@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using MenuServer.Dtos;
 using MenuServer.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.MapperProfiles
 {
@@ -13,7 +10,12 @@ namespace MenuServer.MapperProfiles
         public DishMapperProfile()
         {
             CreateMap<Dish, DishDto>().ForMember(dto => dto.Ingredients, g => g.MapFrom(g => g.DishIngredients.Select(
-                    gc => new IngredientDto { IngredientId = gc.Ingredient.IngredientId, IngredientName = gc.Ingredient.IngredientName })));
+                gc => new IngredientPlusDto { 
+                    IngredientId = gc.Ingredient.IngredientId, 
+                    IngredientName = gc.Ingredient.IngredientName, 
+                    Amount = gc.AmountOfIngredient,
+                    IngredientCode = gc.Ingredient.IngredientCode
+                })));
             CreateMap<DishDto, Dish>();
         }
     }

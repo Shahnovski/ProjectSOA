@@ -2,10 +2,8 @@
 using MenuServer.Dtos;
 using MenuServer.Models;
 using MenuServer.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Services
 {
@@ -74,7 +72,7 @@ namespace MenuServer.Services
             {
                 foreach (IngredientPlusDto dishIngredient in dto.Ingredients)
                 {
-                    Ingredient ingredient = _ingredientRepository.FindById(dishIngredient.IngredientId);
+                    Ingredient ingredient = _ingredientRepository.FindById(dishIngredient.IngredientId, true);
                     Dish_Ingredient newDishIngredient = new Dish_Ingredient { Dish = dish, Ingredient = ingredient, AmountOfIngredient = dishIngredient.Amount }; 
                     _dishIngredientRepository.Add(newDishIngredient);
                 }
@@ -84,7 +82,7 @@ namespace MenuServer.Services
                 {
                     if (dishIngredients.All(gc => gc.IngredientId != dishIngredient.IngredientId))
                     {
-                        Ingredient ingredient = _ingredientRepository.FindById(dishIngredient.IngredientId);
+                        Ingredient ingredient = _ingredientRepository.FindById(dishIngredient.IngredientId, true);
                         Dish_Ingredient newDishIngredient = new Dish_Ingredient { Dish = dish, Ingredient = ingredient, AmountOfIngredient = dishIngredient.Amount };
                         _dishIngredientRepository.Add(newDishIngredient);
                     }
@@ -94,6 +92,16 @@ namespace MenuServer.Services
                     if (dto.Ingredients.All(c => c.IngredientId != dishIngredient.IngredientId))
                     {
                         _dishIngredientRepository.Delete(dishIngredient);
+                    } else
+                    {
+                        Dish_Ingredient updated_dish_ingredient = dishIngredients.FirstOrDefault(di => di.IngredientId == dishIngredient.IngredientId);
+                        IngredientPlusDto updated_ingredient = dto.Ingredients.FirstOrDefault(di => di.IngredientId == dishIngredient.IngredientId);
+
+                        if (updated_dish_ingredient.AmountOfIngredient != updated_ingredient.Amount)
+                        {
+                            updated_dish_ingredient.AmountOfIngredient = updated_ingredient.Amount;
+                            _dishIngredientRepository.Update(updated_dish_ingredient);
+                        }
                     }
                 }
             }

@@ -20,7 +20,7 @@ namespace MenuServer.Controllers
             _menuService = menuService;
         }
 
-        // GET: api/Dishes
+        // GET: api/menu
         [HttpGet]
         //[AllowAnonymous]
         public IEnumerable<MenuDto> GetMenu()
@@ -28,7 +28,7 @@ namespace MenuServer.Controllers
             return _menuService.GetAll();
         }
 
-        // GET: api/Dishes/5
+        // GET: api/menu/5
         [HttpGet("{id}")]
         //[Authorize(AuthenticationSchemes = "Bearer")]
         //[AllowAnonymous]
@@ -49,7 +49,7 @@ namespace MenuServer.Controllers
             return Ok(menuDto);
         }
 
-        // PUT: api/Dishes/5
+        // PUT: api/menu/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
@@ -76,7 +76,7 @@ namespace MenuServer.Controllers
             return Ok(menuDto);
         }
 
-        // POST: api/Dishes
+        // POST: api/menu
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
@@ -93,7 +93,7 @@ namespace MenuServer.Controllers
             return CreatedAtAction("GetMenu", new { id = newMenu.MenuId }, newMenu);
         }
 
-        // DELETE: api/Dishes/5
+        // DELETE: api/menu/5
         [HttpDelete("{id}")]
         //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public ActionResult<MenuDto> DeleteMenu([FromRoute] int id)

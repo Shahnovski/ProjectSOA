@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MenuServer.Models
@@ -14,9 +11,6 @@ namespace MenuServer.Models
         [Required]
         public string TimeOfDayName { get; set; }
 
-        /*[Required]
-        public int MenuId { get; set; }
-        public Menu Menu { get; set; }*/
         [Required]
         public IEnumerable<Menu> Menu { get; set; }
 

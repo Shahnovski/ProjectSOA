@@ -1,8 +1,7 @@
 ﻿using MenuServer.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MenuServer.Repositories
 {
@@ -12,7 +11,10 @@ namespace MenuServer.Repositories
 
         public IEnumerable<Dish_Ingredient> FindByDishId(int dishId)
         {
-            return _context.Dish_Ingredient.Where(gc => gc.DishId == dishId).OrderBy(gc => gc.IngredientId);
+            return _context.Dish_Ingredient
+                .Where(gc => gc.DishId == dishId)
+                .OrderBy(gc => gc.IngredientId)
+                .Include(g => g.Ingredient);
         }
 
         public void Add(Dish_Ingredient entity)

@@ -1,8 +1,5 @@
 ﻿using MenuServer.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MenuServer.Repositories
 {
@@ -10,7 +7,7 @@ namespace MenuServer.Repositories
     {
         IEnumerable<Ingredient> FindAll();
 
-        Ingredient FindById(int id);
+        Ingredient FindById(int id, bool trackable);
 
         bool EntityExists(int id);
 
