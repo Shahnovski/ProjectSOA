@@ -1,0 +1,27 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <br>
+    <h3>Ingredients catalog</h3>
+    <br>
+    <table class="table table-striped table-bordered table-hover ">
+      <thead>
+      <tr>
+        <th class="col-lg-8">Name</th>
+        <th>Code</th>
+        <th>ID</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ingredient of ingredients">
+        <td>{{ingredient.ingredientName}}</td>
+        <td>{{ingredient.ingredientCode}}</td>
+        <td>{{ingredient.ingredientId}}</td>
+        <td><button [routerLink]="['/edit-ingredient/', ingredient.ingredientId]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
+        <td><button (click)="deleteIngredient(ingredient.ingredientId)" class="btn btn-outline-danger">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
