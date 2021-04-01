@@ -24,10 +24,10 @@ export class AccountEditComponent implements OnInit {
               public modal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    this.getIngredientDetails(this.account.accountId);
+    this.getAccountDetails(this.account.accountId);
   }
 
-  getIngredientDetails(id: number) {
+  getAccountDetails(id: number) {
     this.accountService.getAccount(id).subscribe(
       data => {
         this.account = data;

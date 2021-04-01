@@ -19,8 +19,8 @@ export class AccountService {
 
   constructor(private http: HttpClient) { }
 
-  getAccountList(username: string): Observable<BankAccount[]> {
-    return this.http.get<BankAccount[]>(`${this.appUrl + this.apiUrl}/byUsername/${username}`);
+  getAccountList(): Observable<BankAccount[]> {
+    return this.http.get<BankAccount[]>(`${this.appUrl + this.apiUrl}`);
   }
 
   getAccount(id: number): Observable<BankAccount> {

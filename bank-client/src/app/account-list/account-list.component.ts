@@ -25,7 +25,7 @@ export class AccountListComponent implements OnInit {
   }
 
   loadAccounts() {
-    this.accountService.getAccountList(this.authService.getUserName()).subscribe(
+    this.accountService.getAccountList().subscribe(
       data => {
         this.accounts = data;
       },

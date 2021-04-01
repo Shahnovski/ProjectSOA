@@ -27,12 +27,13 @@ namespace BankServer.Controllers
             _accountService = accountService;
         }
 
-        // GET: api/Accounts/byUsername/username
-        [HttpGet("byUsername/{username}")]
+        // GET: api/Accounts
+        [HttpGet]
         [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
-        public IEnumerable<AccountDto> GetAccountsByUsername([FromRoute] string username)
+        public IEnumerable<AccountDto> GetAccountsByUsername()
         {
-            return _accountService.GetByUsername(username);
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            return _accountService.GetByUsername(currentUserName);
         }
 
         // GET: api/Accounts/5
@@ -62,12 +63,13 @@ namespace BankServer.Controllers
         [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IActionResult PutAccount([FromRoute] int id, [FromBody] AccountDto accountDto)
         {
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != accountDto.AccountId)
+            if (id != accountDto.AccountId || !currentUserName.Equals(accountDto.AccountUserName))
             {
                 return BadRequest();
             }
@@ -96,6 +98,7 @@ namespace BankServer.Controllers
         [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IActionResult PutAccountByNumber([FromRoute] string number, [FromBody] AccountDto accountDto)
         {
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -111,7 +114,7 @@ namespace BankServer.Controllers
             try
             {
                 findedByNumberAccountDto = _accountService.GetByNumber(accountDto.AccountNumber);
-                if (findedByNumberAccountDto != null)
+                if (findedByNumberAccountDto != null && currentUserName.Equals(findedByNumberAccountDto.AccountUserName))
                 {
                     findedByNumberAccountDto.AccountMoney = accountDto.AccountMoney;
                     findedByNumberAccountDto = _accountService.Save(findedByNumberAccountDto.AccountId, findedByNumberAccountDto);
