@@ -37,11 +37,11 @@ export class CartItemService {
     return this.http.delete(`${this.appUrl + this.apiUrl}/${id}`, {responseType: 'text'});
   }
 
-  deleteCartItemsByUserId(userId: number): Observable<any> {
-    return this.http.delete(`${this.appUrl + this.apiUrl}/deleteByUserId/${userId}`, {responseType: 'text'});
+  deleteCartItemsByUserId(username: string): Observable<any> {
+    return this.http.delete(`${this.appUrl + this.apiUrl}/deleteByUserId/${username}`, {responseType: 'text'});
   }
 
-  getCartItemsCount(userId: number): Observable<number> {
-    return this.http.get<number>(`${this.appUrl + this.apiUrl}/cartItemsCount/${userId}`);
+  getCartItemsCount(username: string): Observable<number> {
+    return this.http.get<number>(`${this.appUrl + this.apiUrl}/cartItemsCount/${username}`);
   }
 }

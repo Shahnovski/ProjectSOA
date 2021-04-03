@@ -1,11 +1,9 @@
 package com.example.internetshopserver.cartitem;
 
-import org.postgresql.util.PSQLException;
-
 import java.util.List;
 
 public interface CartItemService {
-    List<CartItemDTO> getCartItemList();
+    List<CartItemDTO> getCartItemList(String username);
 
     CartItemDTO getCartItemById(Long id);
 
@@ -13,7 +11,7 @@ public interface CartItemService {
 
     void deleteCartItem(Long id);
 
-    void deleteByUserId(Long userId);
+    void deleteByUserId(String username);
     
-    Long getCartItemsCountByUserId(Long userId);
+    Long getCartItemsCountByUserId(String username);
 }

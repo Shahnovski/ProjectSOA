@@ -1,10 +1,14 @@
 package com.example.internetshopserver.cartitem;
 
 import com.example.internetshopserver.common.ApplicationProperties;
+import com.example.internetshopserver.config.jwt.JwtFilter;
+import com.example.internetshopserver.config.jwt.JwtProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -13,10 +17,13 @@ import java.util.List;
 public class CartItemController {
 
     private final CartItemService cartItemService;
+    private final JwtProvider jwtProvider;
+    private final JwtFilter jwtFilter;
 
     @GetMapping(value = "", produces = "application/json; charset=UTF-8")
-    List<CartItemDTO> getCartItemList() {
-        return cartItemService.getCartItemList();
+    List<CartItemDTO> getCartItemList(HttpServletRequest request) {
+        String username = jwtProvider.getLoginFromToken(jwtFilter.getTokenFromRequest(request));
+        return cartItemService.getCartItemList(username);
     }
 
     @GetMapping("/{id}")
@@ -25,13 +32,21 @@ public class CartItemController {
     }
 
     @PostMapping("")
-    CartItemDTO createCartItem(@RequestBody CartItemDTO cartItemDTO) {
+    CartItemDTO createCartItem(@RequestBody CartItemDTO cartItemDTO, HttpServletRequest request) {
+        String username = jwtProvider.getLoginFromToken(jwtFilter.getTokenFromRequest(request));
+        cartItemDTO.setCartItemUserName(username);
         return cartItemService.saveCartItem(null, cartItemDTO);
     }
 
     @PutMapping("/{id}")
     public CartItemDTO updateCartItem(@PathVariable(value = "id") Long cartItemId,
-                                          @RequestBody CartItemDTO cartItemDTO) {
+                                          @RequestBody CartItemDTO cartItemDTO,
+                                      HttpServletRequest request) {
+        String username = jwtProvider.getLoginFromToken(jwtFilter.getTokenFromRequest(request));
+        if (!username.equals(cartItemDTO.getCartItemUserName()))
+        {
+            throw new AccessDeniedException("Access denied!");
+        }
         return cartItemService.saveCartItem(cartItemId, cartItemDTO);
     }
 
@@ -40,14 +55,14 @@ public class CartItemController {
         cartItemService.deleteCartItem(cartItemId);
     }
 
-    @DeleteMapping("/deleteByUserId/{userId}")
-    public void deleteCartItemsByUserId(@PathVariable(value = "userId") Long userId) {
-        cartItemService.deleteByUserId(userId);
+    @DeleteMapping("/deleteByUserId/{username}")
+    public void deleteCartItemsByUserId(@PathVariable(value = "username") String username) {
+        cartItemService.deleteByUserId(username);
     }
 
-    @GetMapping("/cartItemsCount/{userId}")
-    public Long getCartItemsCountByUserId(@PathVariable(value = "userId") Long userId) {
-        return cartItemService.getCartItemsCountByUserId(userId);
+    @GetMapping("/cartItemsCount/{username}")
+    public Long getCartItemsCountByUserId(@PathVariable(value = "username") String username) {
+        return cartItemService.getCartItemsCountByUserId(username);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

@@ -3,6 +3,7 @@ import {ShopItem} from '../shopItem';
 import {IngredientItemService} from '../services/ingredient-item.service';
 import {CartItemService} from "../services/cart-item.service";
 import { AppComponent } from '../app.component';
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-ingredient-list',
@@ -14,10 +15,12 @@ export class IngredientListComponent implements OnInit {
   ingredients: ShopItem[] = [];
 
   constructor(private ingredientItemService: IngredientItemService,
-              private cartItemService: CartItemService) { }
+              private cartItemService: CartItemService,
+              public authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadIngredients();
+    this.loadCartItemsCount(this.authService.getUserName())
   }
 
   loadIngredients() {
@@ -42,15 +45,15 @@ export class IngredientListComponent implements OnInit {
   addIngredientToCart(cartItem: { ingredientId: number; cartItemCount: number }) {
     this.cartItemService.createCartItem(cartItem).subscribe(
       data => {
-        this.loadCartItemsCount(1);
+        this.loadCartItemsCount(this.authService.getUserName());
       },
       error => {
         console.log(error)
       });
   }
 
-  loadCartItemsCount(userId: number) {
-    this.cartItemService.getCartItemsCount(1).subscribe(
+  loadCartItemsCount(username: string) {
+    this.cartItemService.getCartItemsCount(username).subscribe(
       data => {
         AppComponent.cartItemsCount = data;
       },

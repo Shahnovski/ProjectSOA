@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "cart_item")
+@Table(name = "cart_item", uniqueConstraints=@UniqueConstraint(columnNames={"ingredient_id", "cart_item_username"}))
 public class CartItem {
 
     @Id
@@ -22,11 +22,14 @@ public class CartItem {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "ingredient_id", unique = true, nullable = false)
+    @JoinColumn(name = "ingredient_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Ingredient ingredient;
 
     @Column(name = "cart_item_count", nullable = false)
     private Integer cartItemCount;
+
+    @Column(name = "cart_item_username", nullable = false)
+    private String cartItemUserName;
 
 }
