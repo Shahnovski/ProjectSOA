@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace MenuServer.Controllers
 {
@@ -25,7 +27,16 @@ namespace MenuServer.Controllers
         //[AllowAnonymous]
         public IEnumerable<MenuDto> GetMenu()
         {
-            return _menuService.GetAll();
+            List<MenuDto> result = _menuService.GetAll().ToList();
+            foreach (MenuDto menu in result)
+            {
+                if (menu.Dish.Ingredients.Count() > 0)
+                {
+                    _menuService.GetIngredientsFromCatalog("http://localhost:8072/api/v1/ingredients/byCodes/", menu.Dish);
+                    _menuService.GetIngredientsFromStore("http://localhost:8073/api/v1/ingredients/byCodes/", menu.Dish);
+                }
+            }
+            return result;
         }
 
         // GET: api/menu/5
@@ -117,5 +128,6 @@ namespace MenuServer.Controllers
         {
             return _menuService.EntityExists(id);
         }
+
     }
 }

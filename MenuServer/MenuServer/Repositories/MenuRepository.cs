@@ -13,6 +13,8 @@ namespace MenuServer.Repositories
         {
             return _context.Menu
                 .Include(g => g.Dish)
+                .ThenInclude(d => d.DishIngredients)
+                .ThenInclude(di => di.Ingredient)
                 .Include(g => g.TimeOfDay)
                 .Include(g => g.DayOfWeek);
         }
