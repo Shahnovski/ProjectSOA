@@ -20,7 +20,7 @@ public class IngredientController {
         return ingredientService.getIngredientList();
     }
 
-    @GetMapping(value = "/", params = "codes", produces = "application/json; charset=UTF-8")
+    @GetMapping(value = "/byCodes", params = "codes", produces = "application/json; charset=UTF-8")
     List<IngredientDTO> getIngredientListByCodes(@RequestParam(value = "codes") List<Long> codes) {
         return ingredientService.getIngredientListByCodes(codes);
     }
