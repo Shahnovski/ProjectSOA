@@ -10,6 +10,8 @@ namespace MenuServer.MapperProfiles
         {
             CreateMap<Ingredient, IngredientDto>();
             CreateMap<IngredientDto, Ingredient>();
+
+            CreateMap<IngredientPlusDto, IngredientToCartDto>().ForMember(dto => dto.CartItemCount, i => i.MapFrom(i => i.Amount));
         }
     }
 }

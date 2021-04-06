@@ -54,6 +54,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter implement
                 .authorizeRequests()
                 .antMatchers(ApplicationProperties.API_URL + "/ingredients/**").hasRole("user")
                 .antMatchers(ApplicationProperties.API_URL + "/ingredients/byCodes/").permitAll()
+                .antMatchers(ApplicationProperties.API_URL + "/cartItems/all").permitAll()
                 .antMatchers(ApplicationProperties.API_URL + "/cartItems/**").hasRole("user")
                 .antMatchers(ApplicationProperties.API_URL + "/payment/**").hasRole("user")
                 .anyRequest().authenticated()

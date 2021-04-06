@@ -124,6 +124,19 @@ namespace MenuServer.Controllers
             return Ok();
         }
 
+        [HttpPost("toCart")]
+        public IActionResult PostIngredientsToCart([FromBody] List<DishDto> dishDtos)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _menuService.PostIngredientsToCart("http://localhost:8073/api/v1/cartItems/all", dishDtos);
+
+            return Ok();
+        }
+
         private bool MenuExists(int id)
         {
             return _menuService.EntityExists(id);

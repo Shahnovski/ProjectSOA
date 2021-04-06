@@ -21,7 +21,6 @@ namespace MenuServer.Services
             _mapper = mapper;
         }
 
-        // TODO: Серега, как делоть, другой сервис дергать нид!!!
         public IngredientDto GetById(int id)
         {
             return _mapper.Map<IngredientDto>(_ingredientRepository.FindById(id, false));

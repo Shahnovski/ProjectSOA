@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.Json;
 
 namespace MenuServer.Services
@@ -131,6 +132,24 @@ namespace MenuServer.Services
                 returnFlag = true;
             });
             while (!returnFlag) { }
+        }
+
+        public void PostIngredientsToCart(string url, IEnumerable<DishDto> dishDtos)
+        {
+            List<IngredientToCartDto> ingredientsToCart = new List<IngredientToCartDto>();
+            foreach (DishDto dishDto in dishDtos)
+            {
+                ingredientsToCart.AddRange(dishDto.Ingredients.Select(i => _mapper.Map<IngredientToCartDto>(i)));
+            }
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+            string jsonRequest = JsonSerializer.Serialize(ingredientsToCart);
+            jsonRequest = jsonRequest.Replace("\"I", "\"i");
+            jsonRequest = jsonRequest.Replace("\"C", "\"c");
+            request.Content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+            client.SendAsync(request).ContinueWith(responseTask => {});
         }
     }
 }

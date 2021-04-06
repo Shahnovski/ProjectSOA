@@ -14,4 +14,6 @@ public interface CartItemService {
     void deleteByUserId(String username);
     
     Long getCartItemsCountByUserId(String username);
+
+    void saveAllCartItems(List<CartItemFromMenuDTO> cartItemDTOs);
 }

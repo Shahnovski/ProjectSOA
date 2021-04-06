@@ -10,5 +10,7 @@ namespace MenuServer.Services
         void GetIngredientsFromCatalog(string url, DishDto dishDto);
 
         void GetIngredientsFromStore(string url, DishDto dishDto);
+
+        void PostIngredientsToCart(string url, IEnumerable<DishDto> dishDtos);
     }
 }

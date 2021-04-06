@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -63,6 +64,11 @@ public class CartItemController {
     @GetMapping("/cartItemsCount/{username}")
     public Long getCartItemsCountByUserId(@PathVariable(value = "username") String username) {
         return cartItemService.getCartItemsCountByUserId(username);
+    }
+
+    @PostMapping("/all")
+    public void createAllCartItems(@RequestBody ArrayList<CartItemFromMenuDTO> cartItemDTOs) {
+        cartItemService.saveAllCartItems(cartItemDTOs);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
