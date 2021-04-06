@@ -12,8 +12,8 @@
           <th>Proteins</th>
           <th>Carbohydrates</th>
           <th>Fats</th>
-          <th></th>
-          <th></th>
+          <th *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"></th>
+          <th *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"></th>
         </tr>
       </thead>
         <tbody>
@@ -24,8 +24,8 @@
           <td>{{ingredient.ingredientProteins}}</td>
           <td>{{ingredient.ingredientCarbohydrates}}</td>
           <td>{{ingredient.ingredientFats}}</td>
-          <td><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
-          <td><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
+          <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
+          <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
         </tr>
       </tbody>
     </table>

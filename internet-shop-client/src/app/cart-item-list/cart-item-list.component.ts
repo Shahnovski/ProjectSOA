@@ -3,6 +3,7 @@ import {CartItem} from "../cartItem";
 import {CartItemService} from "../services/cart-item.service";
 import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {PaymentComponent} from "../payment/payment.component";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-cart-item-list',
@@ -17,6 +18,7 @@ export class CartItemListComponent implements OnInit {
 
   constructor(private cartItemService: CartItemService,
               public modal: NgbActiveModal,
+              public authService: AuthService,
               private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -43,8 +45,8 @@ export class CartItemListComponent implements OnInit {
         error => console.log(error));
   }
 
-  deleteCartItemsByUserId(userId: number) {
-    this.cartItemService.deleteCartItemsByUserId(userId)
+  deleteCartItemsByUserId(username: string) {
+    this.cartItemService.deleteCartItemsByUserId(this.authService.getUserName())
       .subscribe(
         data => {
           this.loadCartItems();
@@ -79,7 +81,7 @@ export class CartItemListComponent implements OnInit {
         this.loadCartItems();
       }
       else {
-        this.deleteCartItemsByUserId(1);
+        this.deleteCartItemsByUserId(this.authService.getUserName());
         this.modal.close('Save');
       }
       },

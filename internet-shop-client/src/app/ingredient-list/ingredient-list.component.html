@@ -9,8 +9,8 @@
         <th class="center">Name</th>
         <th class="center">Code</th>
         <th class="center">Cost</th>
-        <th></th>
-        <th></th>
+        <th *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"></th>
+        <th *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"></th>
         <th></th>
       </tr>
       </thead>
@@ -19,8 +19,8 @@
         <td class="center">{{ingredient.ingredientName}}</td>
         <td class="center">{{ingredient.ingredientCode}}</td>
         <td class="center">{{ingredient.ingredientPrice}}</td>
-        <td class="center"><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
-        <td class="center"><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
+        <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'" class="center"><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
+        <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'" class="center"><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
         <td class="center"><button (click)="addIngredientToCart({ingredientId : ingredient.id, cartItemCount : 1})"
                     class="btn btn-outline-success">Add to cart</button></td>
       </tr>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Ingredient} from "../ingredient";
 import {IngredientService} from "../services/ingredient.service";
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -11,7 +12,8 @@ export class IngredientListComponent implements OnInit {
 
   ingredients: Ingredient[] = [];
 
-  constructor(private ingredientService: IngredientService) { }
+  constructor(private ingredientService: IngredientService,
+              public authService: AuthService) { }
 
   ngOnInit(): void {
     this.loadIngredients();

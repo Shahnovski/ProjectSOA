@@ -2,8 +2,12 @@
 using MenuServer.Dtos;
 using MenuServer.Models;
 using MenuServer.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace MenuServer.Services
 {
@@ -58,6 +62,75 @@ namespace MenuServer.Services
         public bool EntityExists(int id)
         {
             return _menuRepository.EntityExists(id);
+        }
+
+        public void GetIngredientsFromCatalog(string url, DishDto dishDto)
+        {
+            bool returnFlag = false;
+            url += "?codes=";
+            foreach (IngredientPlusDto ingredient in dishDto.Ingredients)
+            {
+                url += ingredient.IngredientCode.ToString();
+                url += ",";
+            }
+            url = url.Remove(url.Length - 1);
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+            List<IngredientFromCatalogDto> ingredientsFromCatalog = new List<IngredientFromCatalogDto>();
+            client.SendAsync(request).ContinueWith(responseTask =>
+            {
+                string jsonIngredients = responseTask.Result.Content.ReadAsStringAsync().Result;
+                jsonIngredients = jsonIngredients.Replace("\"i", "\"I");
+                ingredientsFromCatalog.AddRange(JsonSerializer.Deserialize<List<IngredientFromCatalogDto>>(jsonIngredients));
+                List<IngredientPlusDto> list = dishDto.Ingredients.ToList();
+                foreach (IngredientPlusDto ingredientPlusDto in list)
+                {
+                    IngredientFromCatalogDto ingredientFromCatalog = ingredientsFromCatalog.FirstOrDefault(
+                        i => i.IngredientCode == ingredientPlusDto.IngredientCode);
+                    ingredientPlusDto.IngredientCalories = ingredientFromCatalog.IngredientCalories;
+                    ingredientPlusDto.IngredientProteins = ingredientFromCatalog.IngredientProteins;
+                    ingredientPlusDto.IngredientCarbohydrates = ingredientFromCatalog.IngredientCarbohydrates;
+                    ingredientPlusDto.IngredientFats = ingredientFromCatalog.IngredientFats;
+                }
+                dishDto.Ingredients = list;
+                returnFlag = true;
+            });
+            while (!returnFlag) { }
+        }
+
+        public void GetIngredientsFromStore(string url, DishDto dishDto)
+        {
+            bool returnFlag = false;
+            url += "?codes=";
+            foreach (IngredientPlusDto ingredient in dishDto.Ingredients)
+            {
+                url += ingredient.IngredientCode.ToString();
+                url += ",";
+            }
+            url = url.Remove(url.Length - 1);
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(url);
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
+            List<IngredientFromStoreDto> ingredientsFromCatalog = new List<IngredientFromStoreDto>();
+            client.SendAsync(request).ContinueWith(responseTask =>
+            {
+                string jsonIngredients = responseTask.Result.Content.ReadAsStringAsync().Result;
+                jsonIngredients = jsonIngredients.Replace("\"i", "\"I");
+                ingredientsFromCatalog.AddRange(JsonSerializer.Deserialize<List<IngredientFromStoreDto>>(jsonIngredients));
+                List<IngredientPlusDto> list = dishDto.Ingredients.ToList();
+                foreach (IngredientPlusDto ingredientPlusDto in list)
+                {
+                    IngredientFromStoreDto ingredientFromCatalog = ingredientsFromCatalog.FirstOrDefault(
+                        i => i.IngredientCode == ingredientPlusDto.IngredientCode);
+                    ingredientPlusDto.IngredientCost = ingredientFromCatalog.IngredientPrice;
+                }
+                dishDto.Ingredients = list;
+                returnFlag = true;
+            });
+            while (!returnFlag) { }
         }
     }
 }

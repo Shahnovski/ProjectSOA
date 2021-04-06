@@ -6,6 +6,7 @@ import com.example.internetshopserver.ingredient.Ingredient;
 import com.example.internetshopserver.ingredient.IngredientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,8 +19,8 @@ public class CartItemServiceImpl implements CartItemService {
     private final CartItemMapper cartItemMapper;
 
     @Override
-    public List<CartItemDTO> getCartItemList() {
-        return cartItemMapper.toCartItemDTOs(cartItemRepository.findAllByOrderById());
+    public List<CartItemDTO> getCartItemList(String username) {
+        return cartItemMapper.toCartItemDTOs(cartItemRepository.findByCartItemUserNameOrderById(username));
     }
 
     @Override
@@ -45,14 +46,15 @@ public class CartItemServiceImpl implements CartItemService {
         cartItemRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
-    public void deleteByUserId(Long userId) {
-        cartItemRepository.deleteAll();
+    public void deleteByUserId(String username) {
+        cartItemRepository.deleteAllByCartItemUserName(username);
     }
 
     @Override
-    public Long getCartItemsCountByUserId(Long userId) {
-        return cartItemRepository.count();
+    public Long getCartItemsCountByUserId(String username) {
+        return cartItemRepository.countAllByCartItemUserName(username);
     }
 
 }
