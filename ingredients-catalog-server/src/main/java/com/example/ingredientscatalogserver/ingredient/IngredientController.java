@@ -1,11 +1,15 @@
 package com.example.ingredientscatalogserver.ingredient;
 
 import com.example.ingredientscatalogserver.common.ApplicationProperties;
+import com.example.ingredientscatalogserver.config.jwt.JwtFilter;
+import com.example.ingredientscatalogserver.config.jwt.JwtProvider;
 import com.example.ingredientscatalogserver.exceptions.IngredientCodeExistsException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -14,6 +18,8 @@ import java.util.List;
 public class IngredientController {
 
     private final IngredientService ingredientService;
+    private final JwtProvider jwtProvider;
+    private final JwtFilter jwtFilter;
 
     @GetMapping(value = "", produces = "application/json; charset=UTF-8")
     List<IngredientDTO> getIngredientList() {
@@ -31,18 +37,34 @@ public class IngredientController {
     }
 
     @PostMapping("")
-    IngredientDTO createIngredient(@RequestBody IngredientDTO ingredientDTO) {
+    IngredientDTO createIngredient(@RequestBody IngredientDTO ingredientDTO, HttpServletRequest request) {
+        String role = jwtProvider.getRoleFromToken(jwtFilter.getTokenFromRequest(request));
+        if (!role.equals("admin"))
+        {
+            throw new AccessDeniedException("Access denied!");
+        }
         return ingredientService.saveIngredient(null, ingredientDTO);
     }
 
     @PutMapping("/{id}")
     public IngredientDTO updateIngredient(@PathVariable(value = "id") Long ingredientId,
-                            @RequestBody IngredientDTO ingredientDTO) {
+                            @RequestBody IngredientDTO ingredientDTO,
+                                          HttpServletRequest request) {
+        String role = jwtProvider.getRoleFromToken(jwtFilter.getTokenFromRequest(request));
+        if (!role.equals("admin"))
+        {
+            throw new AccessDeniedException("Access denied!");
+        }
         return ingredientService.saveIngredient(ingredientId, ingredientDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteIngredient(@PathVariable(value = "id") Long ingredientId) {
+    public void deleteIngredient(@PathVariable(value = "id") Long ingredientId, HttpServletRequest request) {
+        String role = jwtProvider.getRoleFromToken(jwtFilter.getTokenFromRequest(request));
+        if (!role.equals("admin"))
+        {
+            throw new AccessDeniedException("Access denied!");
+        }
         ingredientService.deleteIngredient(ingredientId);
     }
 
