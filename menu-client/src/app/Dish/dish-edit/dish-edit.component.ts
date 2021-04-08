@@ -5,7 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {DishService} from '../../services/Dish/dish.service';
 import {IngredientService} from '../../services/Ingredient/ingredient.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {noUndefined} from '@angular/compiler/src/util';
+import { noUndefined } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-dish-edit',
@@ -47,7 +47,7 @@ export class DishEditComponent implements OnInit {
     this.dishService.getDish(id).subscribe(
       data => {
         this.dish = data;
-        this.setEqualityIngreidents();
+        this.setEqualityIngredients();
         this.dishIngredients = data.ingredients;
       },
       error => console.log(error));
@@ -77,7 +77,7 @@ export class DishEditComponent implements OnInit {
     };
   }
 
-  setEqualityIngreidents(): void {
+  setEqualityIngredients(): void {
     let i: number;
     let j: number;
     if (!this.flagIngredientsLoad) {

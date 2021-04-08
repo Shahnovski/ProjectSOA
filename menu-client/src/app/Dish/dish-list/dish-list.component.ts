@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Dish} from '../../Models/dish';
-import {DishService} from '../../services/Dish/dish.service';
+import { Dish } from '../../Models/dish';
+import { DishService } from '../../services/Dish/dish.service';
 
 @Component({
   selector: 'app-dish-list',
