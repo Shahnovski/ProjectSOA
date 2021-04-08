@@ -7,4 +7,5 @@ export class Ingredient {
   ingredientProteins: number = 0;
   ingredientCarbohydrates: number = 0;
   ingredientFats: number = 0;
+  amount: number = 0;
 }
