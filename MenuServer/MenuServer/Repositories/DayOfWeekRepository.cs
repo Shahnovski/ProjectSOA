@@ -19,6 +19,11 @@ namespace MenuServer.Repositories
             return _context.DayOfWeek.AsNoTracking().FirstOrDefault(a => a.DayOfWeekId == id);
         }
 
+        public DayOfWeek FindByName(string name)
+        {
+            return _context.DayOfWeek.AsNoTracking().FirstOrDefault(a => a.DayOfWeekName.Equals(name));
+        }
+
         public void Add(DayOfWeek entity)
         {
             _context.Set<DayOfWeek>().Add(entity);

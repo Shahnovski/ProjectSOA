@@ -15,15 +15,21 @@ namespace MenuServer.Services
     public class MenuService : IMenuService
     {
         private readonly IMenuRepository _menuRepository;
-        
+        private readonly IDayOfWeekRepository _dayOfWeekRepository;
+        private readonly ITimeOfDayRepository _timeOfDayRepository;
+
         private readonly IMapper _mapper;
 
         public MenuService(
             IMenuRepository menuRepository,
+            IDayOfWeekRepository dayOfWeekRepository,
+            ITimeOfDayRepository timeOfDayRepository,
             IMapper mapper
             )
         {
             _menuRepository = menuRepository;
+            _dayOfWeekRepository = dayOfWeekRepository;
+            _timeOfDayRepository = timeOfDayRepository;
             _mapper = mapper;
         }
 
@@ -43,10 +49,16 @@ namespace MenuServer.Services
             if (id != 0)
             {
                 menu.MenuId = id;
+                menu.Dish = null;
                 _menuRepository.Update(menu);
             }
             else
             {
+                //menu.DayOfWeek = _dayOfWeekRepository.FindByName(dto.DayOfWeekName);
+                //menu.TimeOfDay = _timeOfDayRepository.FindByName(dto.TimeOfDayName);
+                menu.DayOfWeekId = _dayOfWeekRepository.FindByName(dto.DayOfWeekName).DayOfWeekId;
+                menu.TimeOfDayId = _timeOfDayRepository.FindByName(dto.TimeOfDayName).TimeOfDayId;
+                menu.Dish = null;
                 _menuRepository.Add(menu);
             }
             menu = _menuRepository.Save(menu);
@@ -58,6 +70,12 @@ namespace MenuServer.Services
             Menu menu = _menuRepository.FindById(id);
             _menuRepository.Delete(menu);
             _menuRepository.Save(menu);
+        }
+
+        public void DeleteAll()
+        {
+            _menuRepository.DeleteAll();
+            _menuRepository.Save();
         }
 
         public bool EntityExists(int id)

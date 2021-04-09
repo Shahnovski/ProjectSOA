@@ -19,6 +19,11 @@ namespace MenuServer.Repositories
             return _context.TimeOfDay.AsNoTracking().FirstOrDefault(a => a.TimeOfDayId == id);
         }
 
+        public TimeOfDay FindByName(string name)
+        {
+            return _context.TimeOfDay.AsNoTracking().FirstOrDefault(a => a.TimeOfDayName.Equals(name));
+        }
+
         public void Add(TimeOfDay entity)
         {
             _context.Set<TimeOfDay>().Add(entity);

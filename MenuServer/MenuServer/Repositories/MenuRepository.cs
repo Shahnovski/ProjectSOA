@@ -27,6 +27,7 @@ namespace MenuServer.Repositories
                 .Include(g => g.DayOfWeek)
                 .FirstOrDefault(g => g.MenuId == id);
         }
+
         public void Add(Menu entity)
         {
             _context.Set<Menu>().Add(entity);
@@ -43,10 +44,21 @@ namespace MenuServer.Repositories
             _context.Set<Menu>().Remove(entity);
         }
 
+        public void DeleteAll()
+        {
+            Menu[] menus = FindAll().ToArray();
+            _context.Set<Menu>().RemoveRange(menus);
+        }
+
         public Menu Save(Menu entity)
         {
             _context.SaveChanges();
             return entity;
+        }
+
+        public void Save()
+        {
+            _context.SaveChanges();
         }
 
         public bool EntityExists(int id)

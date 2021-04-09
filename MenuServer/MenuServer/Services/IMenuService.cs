@@ -7,6 +7,8 @@ namespace MenuServer.Services
     {
         IEnumerable<MenuDto> GetAll();
 
+        void DeleteAll();
+
         void GetIngredientsFromCatalog(string url, DishDto dishDto);
 
         void GetIngredientsFromStore(string url, DishDto dishDto);

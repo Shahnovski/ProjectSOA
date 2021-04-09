@@ -1,12 +1,8 @@
 ﻿using MenuServer.Dtos;
 using MenuServer.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text.Json;
 
 namespace MenuServer.Controllers
 {
@@ -124,6 +120,21 @@ namespace MenuServer.Controllers
             return Ok();
         }
 
+        // DELETE: api/menu
+        [HttpDelete]
+        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        public ActionResult<MenuDto> DeleteAllMenus()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _menuService.DeleteAll();
+
+            return Ok();
+        }
+
         [HttpPost("toCart")]
         public IActionResult PostIngredientsToCart([FromBody] List<DishDto> dishDtos)
         {
@@ -141,6 +152,5 @@ namespace MenuServer.Controllers
         {
             return _menuService.EntityExists(id);
         }
-
     }
 }

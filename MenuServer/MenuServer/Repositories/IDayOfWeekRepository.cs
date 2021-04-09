@@ -7,5 +7,7 @@ namespace MenuServer.Repositories
         IEnumerable<Models.DayOfWeek> FindAll();
 
         Models.DayOfWeek FindById(int id);
+
+        Models.DayOfWeek FindByName(string name);
     }
 }

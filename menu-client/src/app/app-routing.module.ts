@@ -7,6 +7,7 @@ import { DishListComponent } from './Dish/dish-list/dish-list.component';
 import { DishCreateComponent } from './Dish/dish-create/dish-create.component';
 import { DishEditComponent } from './Dish/dish-edit/dish-edit.component';
 import { MenuListComponent } from './Menu/menu-list/menu-list.component';
+import { RedirectToShopComponent } from './Others/redirect-to-shop/redirect-to-shop.component';
 
 const routes: Routes = [
   { path: '', component: MenuListComponent, pathMatch: 'full' },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'edit-ingredient/:id', component: IngredientEditComponent },
   { path: 'list-dish', component: DishListComponent },
   { path: 'add-dish', component: DishCreateComponent },
-  { path: 'edit-dish/:id', component: DishEditComponent }
+  { path: 'edit-dish/:id', component: DishEditComponent },
+  { path: 'redirect-to-shop', component: RedirectToShopComponent }
 ];
 
 @NgModule({

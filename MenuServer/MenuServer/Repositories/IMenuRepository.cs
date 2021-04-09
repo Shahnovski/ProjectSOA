@@ -10,5 +10,9 @@ namespace MenuServer.Repositories
         Menu FindById(int id);
 
         bool EntityExists(int id);
+
+        void DeleteAll();
+
+        void Save();
     }
 }

@@ -7,5 +7,7 @@ namespace MenuServer.Repositories
         IEnumerable<Models.TimeOfDay> FindAll();
 
         Models.TimeOfDay FindById(int id);
+
+        Models.TimeOfDay FindByName(string name);
     }
 }

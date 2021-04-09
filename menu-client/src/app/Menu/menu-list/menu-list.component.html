@@ -1,0 +1,651 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <br>
+    <h1 align="center">Menu</h1>
+    <br>
+    <div style="display: flex; justify-content: space-between">
+      <button [routerLink]="['/redirect-to-shop/']" class="btn btn-primary" (click)="sendIngredientsToShop()">Buy ingredients</button>
+      <button class="btn btn-danger" (click)="onClearMenu()">Clear menu</button>
+    </div>
+    <br>
+    <table class="table table-secondary table-bordered">
+      <thead>
+      <tr>
+        <th>Day of week</th>
+        <th>Time of day</th>
+        <th>Dish</th>
+        <th>Calories of ingredients</th>
+        <th>Cost of ingredients</th>
+      </tr>
+      </thead>
+      <tbody>
+
+      <!-- ==================== Monday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Monday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idMondayBreakfast (change)="onSelectDish(menuMondayBreakfast, idMondayBreakfast.value, monday, breakfast)"
+                  [ngModel]="menuMondayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuMondayBreakfast != null">
+          <div *ngFor="let ingredient of menuMondayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuMondayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuMondayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuMondayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idMondayLunch (change)="onSelectDish(menuMondayLunch, idMondayLunch.value, monday, lunch)"
+                  [ngModel]="menuMondayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuMondayLunch != null">
+          <div *ngFor="let ingredient of menuMondayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuMondayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuMondayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuMondayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idMondayDinner (change)="onSelectDish(menuMondayDinner, idMondayDinner.value, monday, dinner)"
+                  [ngModel]="menuMondayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuMondayDinner != null">
+          <div *ngFor="let ingredient of menuMondayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuMondayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuMondayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuMondayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Monday ==================== -->
+
+      <!-- ==================== Tuesday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Tuesday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idTuesdayBreakfast (change)="onSelectDish(menuTuesdayBreakfast, idTuesdayBreakfast.value, tuesday, breakfast)"
+                  [ngModel]="menuTuesdayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuTuesdayBreakfast != null">
+          <div *ngFor="let ingredient of menuTuesdayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuTuesdayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuTuesdayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuTuesdayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idTuesdayLunch (change)="onSelectDish(menuTuesdayLunch, idTuesdayLunch.value, tuesday, lunch)"
+                  [ngModel]="menuTuesdayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuTuesdayLunch != null">
+          <div *ngFor="let ingredient of menuTuesdayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuTuesdayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuTuesdayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuTuesdayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idTuesdayDinner (change)="onSelectDish(menuTuesdayDinner, idTuesdayDinner.value, tuesday, dinner)"
+                  [ngModel]="menuTuesdayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuTuesdayDinner != null">
+          <div *ngFor="let ingredient of menuTuesdayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuTuesdayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuTuesdayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuTuesdayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Tuesday ==================== -->
+
+      <!-- ==================== Wednesday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Wednesday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idWednesdayBreakfast (change)="onSelectDish(menuWednesdayBreakfast, idWednesdayBreakfast.value, wednesday, breakfast)"
+                  [ngModel]="menuWednesdayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuWednesdayBreakfast != null">
+          <div *ngFor="let ingredient of menuWednesdayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuWednesdayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuWednesdayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuWednesdayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idWednesdayLunch (change)="onSelectDish(menuWednesdayLunch, idWednesdayLunch.value, wednesday, lunch)"
+                  [ngModel]="menuWednesdayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuWednesdayLunch != null">
+          <div *ngFor="let ingredient of menuWednesdayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuWednesdayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuWednesdayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuWednesdayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idWednesdayDinner (change)="onSelectDish(menuWednesdayDinner, idWednesdayDinner.value, wednesday, dinner)"
+                  [ngModel]="menuWednesdayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuWednesdayDinner != null">
+          <div *ngFor="let ingredient of menuWednesdayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuWednesdayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuWednesdayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuWednesdayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Wednesday ==================== -->
+
+      <!-- ==================== Thursday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Thursday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idThursdayBreakfast (change)="onSelectDish(menuThursdayBreakfast, idThursdayBreakfast.value, thursday, breakfast)"
+                  [ngModel]="menuThursdayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuThursdayBreakfast != null">
+          <div *ngFor="let ingredient of menuThursdayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuThursdayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuThursdayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuThursdayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idThursdayLunch (change)="onSelectDish(menuThursdayLunch, idThursdayLunch.value, thursday, lunch)"
+                  [ngModel]="menuThursdayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuThursdayLunch != null">
+          <div *ngFor="let ingredient of menuThursdayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuThursdayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuThursdayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuThursdayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idThursdayDinner (change)="onSelectDish(menuThursdayDinner, idThursdayDinner.value, thursday, dinner)"
+                  [ngModel]="menuThursdayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuThursdayDinner != null">
+          <div *ngFor="let ingredient of menuThursdayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuThursdayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuThursdayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuThursdayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Thursday ==================== -->
+
+      <!-- ==================== Friday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Friday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idFridayBreakfast (change)="onSelectDish(menuFridayBreakfast, idFridayBreakfast.value, friday, breakfast)"
+                  [ngModel]="menuFridayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuFridayBreakfast != null">
+          <div *ngFor="let ingredient of menuFridayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuFridayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuFridayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuFridayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idFridayLunch (change)="onSelectDish(menuFridayLunch, idFridayLunch.value, friday, lunch)"
+                  [ngModel]="menuFridayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuFridayLunch != null">
+          <div *ngFor="let ingredient of menuFridayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuFridayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuFridayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuFridayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idFridayDinner (change)="onSelectDish(menuFridayDinner, idFridayDinner.value, friday, dinner)"
+                  [ngModel]="menuFridayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuFridayDinner != null">
+          <div *ngFor="let ingredient of menuFridayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuFridayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuFridayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuFridayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Friday ==================== -->
+
+      <!-- ==================== Saturday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Saturday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idSaturdayBreakfast (change)="onSelectDish(menuSaturdayBreakfast, idSaturdayBreakfast.value, saturday, breakfast)"
+                  [ngModel]="menuSaturdayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuSaturdayBreakfast != null">
+          <div *ngFor="let ingredient of menuSaturdayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuSaturdayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuSaturdayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuSaturdayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idSaturdayLunch (change)="onSelectDish(menuSaturdayLunch, idSaturdayLunch.value, saturday, lunch)"
+                  [ngModel]="menuSaturdayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuSaturdayLunch != null">
+          <div *ngFor="let ingredient of menuSaturdayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuSaturdayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuSaturdayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuSaturdayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idSaturdayDinner (change)="onSelectDish(menuSaturdayDinner, idSaturdayDinner.value, saturday, dinner)"
+                  [ngModel]="menuSaturdayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuSaturdayDinner != null">
+          <div *ngFor="let ingredient of menuSaturdayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuSaturdayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuSaturdayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuSaturdayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Saturday ==================== -->
+
+      <!-- ==================== Sunday ==================== -->
+      <tr>
+        <td rowspan="3"><h4>Sunday</h4></td>
+        <td>Breakfast</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idSundayBreakfast (change)="onSelectDish(menuSundayBreakfast, idSundayBreakfast.value, sunday, breakfast)"
+                  [ngModel]="menuSundayBreakfast.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuSundayBreakfast != null">
+          <div *ngFor="let ingredient of menuSundayBreakfast.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <div>Amount: {{ingredient.amount}} <i>items</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuSundayBreakfast.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuSundayBreakfast.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuSundayBreakfast.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Lunch</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idSundayLunch (change)="onSelectDish(menuSundayLunch, idSundayLunch.value, sunday, lunch)"
+                  [ngModel]="menuSundayLunch.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuSundayLunch != null">
+          <div *ngFor="let ingredient of menuSundayLunch.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuSundayLunch.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuSundayLunch.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuSundayLunch.dish)}}$</div>
+        </td>
+      </tr>
+      <tr>
+        <td>Dinner</td>
+        <td>
+          <select class="custom-select mr-sm-2"
+                  #idSundayDinner (change)="onSelectDish(menuSundayDinner, idSundayDinner.value, sunday, dinner)"
+                  [ngModel]="menuSundayDinner.dish.dishId">
+            <option value="0">Nothing</option>
+            <option *ngFor="let dish of dishes" value="{{dish.dishId}}">{{dish.dishName}}</option>
+          </select>
+        </td>
+        <td *ngIf="menuSundayDinner != null">
+          <div *ngFor="let ingredient of menuSundayDinner.dish.ingredients">
+            <div><h5>{{ingredient.ingredientName}}:</h5></div>
+            <div>Calories: {{ingredient.ingredientCalories}} <i>kcals</i></div>
+            <div>Proteins: {{ingredient.ingredientProteins}} <i>grams</i></div>
+            <div>Fats: {{ingredient.ingredientFats}} <i>grams</i></div>
+            <div>Carbohydrates: {{ingredient.ingredientCarbohydrates}} <i>grams</i></div>
+            <br>
+          </div>
+        </td>
+        <td>
+          <div *ngFor="let ingredient of menuSundayDinner.dish.ingredients">
+            <div><b>{{ingredient.ingredientName}}</b>: {{ingredient.ingredientCost}}$ x{{ingredient.amount}}</div>
+            <br>
+          </div>
+          <div *ngIf="menuSundayDinner.menuId != 0"><b>Total</b>: {{getTotalDishCost(menuSundayDinner.dish)}}$</div>
+        </td>
+      </tr>
+      <!-- ==================== Sunday ==================== -->
+
+      </tbody>
+    </table>
+  </div>
+</div>

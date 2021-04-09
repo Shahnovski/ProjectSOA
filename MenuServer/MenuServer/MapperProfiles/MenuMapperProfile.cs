@@ -22,7 +22,9 @@ namespace MenuServer.MapperProfiles
                             IngredientCode = i.Ingredient.IngredientCode,
                             Amount = i.AmountOfIngredient
                         })
-                    }));
+                    }))
+                .ForMember(dto => dto.DayOfWeekName, m => m.MapFrom(m => m.DayOfWeek.DayOfWeekName))
+                .ForMember(dto => dto.TimeOfDayName, m => m.MapFrom(m => m.TimeOfDay.TimeOfDayName));
             CreateMap<MenuDto, Menu>();
         }
     }

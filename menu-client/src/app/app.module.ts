@@ -12,9 +12,8 @@ import { DishListComponent } from './Dish/dish-list/dish-list.component';
 import { DishCreateComponent } from './Dish/dish-create/dish-create.component';
 import { DishEditComponent } from './Dish/dish-edit/dish-edit.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-import { MenuCreateComponent } from './Menu/menu-create/menu-create.component';
-import { MenuEditComponent } from './Menu/menu-edit/menu-edit.component';
 import { MenuListComponent } from './Menu/menu-list/menu-list.component';
+import { RedirectToShopComponent } from './Others/redirect-to-shop/redirect-to-shop.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +24,8 @@ import { MenuListComponent } from './Menu/menu-list/menu-list.component';
     DishListComponent,
     DishCreateComponent,
     DishEditComponent,
-    MenuCreateComponent,
-    MenuEditComponent,
-    MenuListComponent
+    MenuListComponent,
+    RedirectToShopComponent
   ],
   imports: [
     BrowserModule,
