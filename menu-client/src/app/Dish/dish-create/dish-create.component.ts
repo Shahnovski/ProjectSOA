@@ -86,10 +86,23 @@ export class DishCreateComponent implements OnInit {
     this.dishIngredients = this.dishIngredients.filter(i => i.ingredientId !== 0);
   }
 
-  updateDishIngredients(): void {
+  updateDishIngredientsForSelectAndDeselect(): void {
     this.refreshIngredients().subscribe(() =>
       this.dishIngredients = this.dishIngredients.filter(i => i.ingredientId !== 0)
     );
+  }
+
+  updateDishIngredientsForSelectAll(): void {
+    this.ingredients.forEach( i => {
+      const buf = this.dishIngredients.filter(ingr => ingr.ingredientId === i.ingredientId);
+      if (buf.length === 0) {
+        this.dishIngredients.push(i);
+      }
+    });
+  }
+
+  updateDishIngredientsForDeselectAll(): void {
+    this.dishIngredients = [];
   }
 
 }

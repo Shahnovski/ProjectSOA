@@ -18,10 +18,10 @@
 
           <div class="form-group">
             <label class="mr-sm-2" for="ingredients">Ingredients</label>
-            <ng-multiselect-dropdown (onSelect)="updateDishIngredients()"
-                                     (onDeSelect)="updateDishIngredients()"
-                                     (onDeSelectAll)="updateDishIngredients()"
-                                     (onSelectAll)="updateDishIngredients()"
+            <ng-multiselect-dropdown (onSelect)="updateDishIngredientsForSelectAndDeselect()"
+                                     (onDeSelect)="updateDishIngredientsForSelectAndDeselect()"
+                                     (onDeSelectAll)="updateDishIngredientsForDeselectAll()"
+                                     (onSelectAll)="updateDishIngredientsForSelectAll()"
                                      [placeholder]="'None'"
                                      id="ingredients"
                                      formControlName="ingredients"
