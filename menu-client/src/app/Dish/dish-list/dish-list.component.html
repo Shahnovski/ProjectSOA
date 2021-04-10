@@ -18,7 +18,7 @@
       <tbody>
       <tr *ngFor="let dish of dishes">
         <td>{{dish.dishName}}</td>
-        <td><div *ngFor="let ingredient of dish.ingredients">{{ingredient.ingredientName}}, {{ingredient.ingredientCode}}</div></td>
+        <td><div *ngFor="let ingredient of dish.ingredients">{{ingredient.ingredientName}}, Code: {{ingredient.ingredientCode}}, Amount: {{ingredient.amount}}</div></td>
         <td><button [routerLink]="['/edit-dish/', dish.dishId]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
         <td><button (click)="deleteDish(dish.dishId)" class="btn btn-outline-danger">Delete</button></td>
       </tr>
