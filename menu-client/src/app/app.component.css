@@ -1,0 +1,33 @@
+.nav-bar {
+  width: 100%;
+  display: inline-flex;
+  background-color: #336B87;
+  justify-content: space-between;
+}
+
+.nav-bar-inner {
+  display: flex;
+}
+
+.nav-item {
+  text-decoration: none;
+}
+
+.nav-item:hover {
+  background-color: #2A3132;
+}
+
+.navWithoutHover {
+  text-decoration: none;
+}
+
+.navWithoutHover > a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-item > a {
+  text-decoration: none;
+  color: black;
+}
+

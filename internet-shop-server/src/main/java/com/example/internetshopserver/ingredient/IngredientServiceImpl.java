@@ -14,6 +14,9 @@ public class IngredientServiceImpl implements IngredientService{
     private final IngredientRepository ingredientRepository;
     private final IngredientMapper ingredientMapper;
 
+    public IngredientServiceImpl() {
+    }
+
     @Override
     public List<IngredientDTO> getIngredientList() {
         return ingredientMapper.toIngredientDTOs(ingredientRepository.findAll());

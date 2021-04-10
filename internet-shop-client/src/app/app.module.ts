@@ -15,6 +15,7 @@ import {HttpInterceptorService} from "./services/http-interceptor.service";
 import {ErrorInterceptorService} from "./services/error-interceptor.service";
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { RedirectToMenuComponent } from './Others/redirect-to-menu/redirect-to-menu.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { RegistrationComponent } from './registration/registration.component';
     CartItemListComponent,
     PaymentComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    RedirectToMenuComponent
   ],
     imports: [
         BrowserModule,

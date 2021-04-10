@@ -1,29 +1,39 @@
 <div class="container">
   <div class="nav-bar">
     <div class="nav-bar-inner">
+
       <div class="nav-item">
-        <a routerLink="/" class="nav-link" role="button" routerLinkActive="active">Home</a>
+        <a routerLink="/" class="nav-link text-white" role="button" routerLinkActive="active">Home</a>
       </div>
+
       <div class="nav-item">
-        <a *ngIf="getAuthService().checkLogged() && getAuthService().getRole() === 'admin'" routerLink="add-ingredient" class="nav-link" role="button" routerLinkActive="active">Add ingredient</a>
+        <a *ngIf="getAuthService().checkLogged() && getAuthService().getRole() === 'admin'" routerLink="add-ingredient" class="nav-link text-white" role="button" routerLinkActive="active">Add ingredient</a>
       </div>
-      <li *ngIf="getAuthService().checkLogged()" class="navbar-nav px-3">
-        <div class=" textfont" >Hello, {{getAuthService().getUserName()}}</div>
-      </li>
-      <li *ngIf="!getAuthService().checkLogged()" class="navbar-nav px-3">
-        <a routerLink="login" class="nav-link textfont" role="button">Login</a>
-      </li>
-      <li *ngIf="!getAuthService().checkLogged()" class="navbar-nav px-3">
-        <a routerLink="registration" class="nav-link textfont" role="button">Registration</a>
-      </li>
-      <li *ngIf="getAuthService().checkLogged()" class="navbar-nav px-3">
-        <a (click)="logout()" routerLink="" class="nav-link textfont" role="button">Logout</a>
-      </li>
+
+      <div *ngIf="!getAuthService().checkLogged()" class="nav-item">
+        <a routerLink="login" class="nav-link text-white" role="button">Login</a>
+      </div>
+
+      <div *ngIf="!getAuthService().checkLogged()" class="nav-item">
+        <a routerLink="registration" class="nav-link text-white" role="button">Registration</a>
+      </div>
+
+      <div *ngIf="getAuthService().checkLogged()" class="nav-item">
+        <a (click)="logout()" class="nav-link text-white" role="button">Logout</a>
+      </div>
+
+      <div *ngIf="getAuthService().checkLogged()" class="navWithoutHover">
+        <a class="nav-link text-white">Hello, {{getAuthService().getUserName()}}</a>
+      </div>
+
     </div>
+
     <div class="nav-bar-inner">
+
       <div class="nav-item">
-        <a (click)="openCart()" routerLink="" class="nav-link" role="button" routerLinkActive="active">Cart (<b>{{getCartItemsCount()}}</b>)</a>
+        <a (click)="openCart()" routerLink="" class="nav-link text-white" role="button" routerLinkActive="active">Cart (<b>{{getCartItemsCount()}}</b>)</a>
       </div>
+
     </div>
   </div>
   <router-outlet></router-outlet>

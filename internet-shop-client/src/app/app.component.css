@@ -1,7 +1,7 @@
 .nav-bar {
   width: 100%;
   display: inline-flex;
-  background-color: #add0f3;
+  background-color: #336B87;
   justify-content: space-between;
 }
 
@@ -14,7 +14,16 @@
 }
 
 .nav-item:hover {
-  background-color: #ffcad5;
+  background-color: #2A3132;
+}
+
+.navWithoutHover {
+  text-decoration: none;
+}
+
+.navWithoutHover > a {
+  text-decoration: none;
+  color: black;
 }
 
 .nav-item > a {
