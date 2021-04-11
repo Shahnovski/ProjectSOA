@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <br>
-    <h1 align="center">Dishes catalog</h1>
+    <h1 align="center">Dish catalog</h1>
     <br>
     <button *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"
             [routerLink]="['/add-dish/']" routerLinkActive="active" class="btn btn-info">Add dish
@@ -19,8 +19,8 @@
       </thead>
       <tbody>
       <tr *ngFor="let dish of dishes">
-        <td>{{dish.dishName}}</td>
-        <td><div *ngFor="let ingredient of dish.ingredients">{{ingredient.ingredientName}}, Code: {{ingredient.ingredientCode}}, Amount: {{ingredient.amount}}</div></td>
+        <td><h5>{{dish.dishName}}</h5></td>
+        <td><div *ngFor="let ingredient of dish.ingredients"><b>{{ingredient.ingredientName}}</b>, Code: {{ingredient.ingredientCode}}, Amount: {{ingredient.amount}}</div></td>
         <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'">
           <button [routerLink]="['/edit-dish/', dish.dishId]" routerLinkActive="active" class="btn btn-outline-info">Edit
           </button>

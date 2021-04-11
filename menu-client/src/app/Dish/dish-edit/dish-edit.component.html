@@ -1,13 +1,13 @@
-<br>
 <div class="col-md-6 offset-md-3">
-  <h3>Edit dish</h3>
+  <br>
+  <h3 align="center">Edit Dish</h3>
+  <br>
   <div class="card">
     <div class="card-body">
       <div [hidden]="submitted" >
         <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" [formGroup]="dishForm" novalidate>
-
           <div class="form-group">
-            <label class="col-md-4">Name</label>
+            <label>Name</label>
             <label for="dishName"></label><input type="text" class="form-control" id="dishName" formControlName="dishName" required [(ngModel)]="dish.dishName" name="dishName">
           </div>
           <div *ngIf="dishForm.controls['dishName'].invalid && (dishForm.controls['dishName'].dirty || dishForm.controls['dishName'].touched)" class="alert alert-danger">
@@ -15,7 +15,6 @@
               Name is required.
             </div>
           </div>
-
           <div class="form-group">
             <label class="mr-sm-2" for="ingredients">Ingredients</label>
             <ng-multiselect-dropdown (onSelect)="updateDishIngredientsForSelectAndDeselect()"
@@ -30,23 +29,17 @@
                                      [settings]="dropdownSettingsIngredients" >
             </ng-multiselect-dropdown>
           </div>
-
           <div *ngFor="let ingredient of dishIngredients">
+            <br>
             <label class="mr-sm-2" for="typeNumber">{{ingredient.ingredientName}} count</label>
             <input type="number" min="0" id="typeNumber" [(ngModel)]="ingredient.amount" [ngModelOptions]="{standalone: true}" class="form-control"/>
           </div>
-
-          <br>
           <br>
           <div *ngIf="!countsAreCorrect()" class="alert alert-danger">Count of ingredients is incorrect!</div>
-
+          <br>
           <div class="form-group">
             <button type="submit" [disabled]="dishForm.invalid || !countsAreCorrect()" class="btn btn-primary">Submit</button>
           </div>
-
-          <br>
-          <br>
-
         </form>
       </div>
     </div>

@@ -1,51 +1,54 @@
-<br>
-<h3>Add Advertisement</h3>
-<div class="card">
-  <div class="card-body">
-    <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" [formGroup]="ingredientForm" novalidate>
+<div class="col-md-6 offset-md-3">
+  <br>
+  <h3 align="center">Edit Ingredient</h3>
+  <br>
+  <div class="card">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" [formGroup]="ingredientForm" novalidate>
 
-      <div class="form-group">
-        <label class="col-md-4">Name</label>
-        <label for="ingredientName"></label><input type="text" class="form-control" id="ingredientName" formControlName="ingredientName" required [(ngModel)]="ingredient.ingredientName" name="ingredientName">
-      </div>
-      <div *ngIf="ingredientForm.controls['ingredientName'].invalid && (ingredientForm.controls['ingredientName'].dirty || ingredientForm.controls['ingredientName'].touched)" class="alert alert-danger">
-        <div *ngIf="ingredientForm.controls['ingredientName'].errors!.required">
-          Ingredient name is required.
+        <div class="form-group">
+          <label>Name</label>
+          <label for="ingredientName"></label><input type="text" class="form-control" id="ingredientName" formControlName="ingredientName" required [(ngModel)]="ingredient.ingredientName" name="ingredientName">
         </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-md-4">Code</label>
-        <label for="ingredientCode"></label><input type="text" class="form-control" id="ingredientCode" formControlName="ingredientCode" required [(ngModel)]="ingredient.ingredientCode" name="ingredientCode">
-      </div>
-      <div *ngIf="ingredientForm.controls['ingredientCode'].invalid && (ingredientForm.controls['ingredientCode'].dirty || ingredientForm.controls['ingredientCode'].touched)" class="alert alert-danger">
-        <div *ngIf="ingredientForm.controls['ingredientCode'].errors!.required">
-          Ingredient code is required.
+        <div *ngIf="ingredientForm.controls['ingredientName'].invalid && (ingredientForm.controls['ingredientName'].dirty || ingredientForm.controls['ingredientName'].touched)" class="alert alert-danger">
+          <div *ngIf="ingredientForm.controls['ingredientName'].errors!.required">
+            Ingredient name is required.
+          </div>
         </div>
-        <div *ngIf="ingredientForm.controls['ingredientCode'].errors!.pattern">
-          Ingredient code must be a integer number.
+
+        <div class="form-group">
+          <label>Code</label>
+          <label for="ingredientCode"></label><input type="text" class="form-control" id="ingredientCode" formControlName="ingredientCode" required [(ngModel)]="ingredient.ingredientCode" name="ingredientCode">
         </div>
-      </div>
-
-      <div class="form-group">
-        <label class="col-md-4">Cost</label>
-        <label for="ingredientCost"></label><input type="text" class="form-control" id="ingredientCost" formControlName="ingredientCost" required [(ngModel)]="ingredient.ingredientPrice" name="ingredientCost">
-      </div>
-      <div *ngIf="ingredientForm.controls['ingredientCost'].invalid && (ingredientForm.controls['ingredientCost'].dirty || ingredientForm.controls['ingredientCost'].touched)" class="alert alert-danger">
-        <div *ngIf="ingredientForm.controls['ingredientCost'].errors!.required">
-          Ingredient cost is required.
+        <div *ngIf="ingredientForm.controls['ingredientCode'].invalid && (ingredientForm.controls['ingredientCode'].dirty || ingredientForm.controls['ingredientCode'].touched)" class="alert alert-danger">
+          <div *ngIf="ingredientForm.controls['ingredientCode'].errors!.required">
+            Ingredient code is required.
+          </div>
+          <div *ngIf="ingredientForm.controls['ingredientCode'].errors!.pattern">
+            Ingredient code must be a integer number.
+          </div>
         </div>
-        <div *ngIf="ingredientForm.controls['ingredientCost'].errors!.pattern">
-          Ingredient cost must be a number.
+
+        <div class="form-group">
+          <label>Cost</label>
+          <label for="ingredientCost"></label><input type="text" class="form-control" id="ingredientCost" formControlName="ingredientCost" required [(ngModel)]="ingredient.ingredientPrice" name="ingredientCost">
         </div>
-      </div>
+        <div *ngIf="ingredientForm.controls['ingredientCost'].invalid && (ingredientForm.controls['ingredientCost'].dirty || ingredientForm.controls['ingredientCost'].touched)" class="alert alert-danger">
+          <div *ngIf="ingredientForm.controls['ingredientCost'].errors!.required">
+            Ingredient cost is required.
+          </div>
+          <div *ngIf="ingredientForm.controls['ingredientCost'].errors!.pattern">
+            Ingredient cost must be a number.
+          </div>
+        </div>
 
-      <div class="form-group">
-        <button type="submit" [disabled]="ingredientForm.invalid"  class="btn btn-primary">Submit</button>
-      </div>
+        <div class="form-group">
+          <button type="submit" [disabled]="ingredientForm.invalid"  class="btn btn-primary">Submit</button>
+        </div>
 
-      <div *ngIf="incorrectIngredientCode" class="alert alert-danger">This ingredientCode is already exists!</div>
+        <div *ngIf="incorrectIngredientCode" class="alert alert-danger">This ingredientCode is already exists!</div>
 
-    </form>
+      </form>
+    </div>
   </div>
 </div>

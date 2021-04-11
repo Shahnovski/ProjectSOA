@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <br>
-    <h1 align="center">Ingredients catalog</h1>
+    <h1 align="center">Ingredient catalog</h1>
     <br>
     <button [routerLink]="['/add-ingredient/']" routerLinkActive="active" class="btn btn-info">Add ingredient</button>
     <br>
@@ -18,7 +18,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let ingredient of ingredients">
-        <td>{{ingredient.ingredientName}}</td>
+        <td><h5>{{ingredient.ingredientName}}</h5></td>
         <td>{{ingredient.ingredientCode}}</td>
         <td>{{ingredient.ingredientId}}</td>
         <td><button [routerLink]="['/edit-ingredient/', ingredient.ingredientId]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>

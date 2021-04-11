@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
     <br>
-    <h1 class="text-center">Online store</h1>
+    <h1 class="text-center">Online Store</h1>
     <br>
     <div>
       <button [routerLink]="['/redirect-to-menu/']" class="btn btn-info">Go to menu</button>
@@ -22,7 +22,7 @@
       <tr *ngFor="let ingredient of ingredients">
         <td class="center">{{ingredient.ingredientName}}</td>
         <td class="center">{{ingredient.ingredientCode}}</td>
-        <td class="center">{{ingredient.ingredientPrice}}</td>
+        <td class="center">${{ingredient.ingredientPrice}}</td>
         <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'" class="center"><button [routerLink]="['/edit-ingredient/', ingredient.id]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
         <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'" class="center"><button (click)="deleteIngredient(ingredient.id)" class="btn btn-outline-danger">Delete</button></td>
         <td class="center"><button (click)="addIngredientToCart({ingredientId : ingredient.id, cartItemCount : 1})"

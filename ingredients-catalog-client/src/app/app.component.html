@@ -1,31 +1,28 @@
 <div class="container">
   <nav class="nav-bar">
     <div class="nav-bar-inner">
-
-      <div *ngIf="getAuthService().checkLogged()" class="navWithoutHover">
-        <a class="nav-link text-white">Hello, {{getAuthService().getUserName()}}</a>
+      <div class="nav-bar-inner">
+        <div class="nav-item">
+          <a routerLink="/" class="nav-link text-white" role="button" routerLinkActive="active">Home</a>
+        </div>
+        <div *ngIf="getAuthService().checkLogged() && getAuthService().getRole() === 'admin'" class="nav-item">
+          <a routerLink="add-ingredient" class="nav-link text-white" role="button" routerLinkActive="active">Add ingredient</a>
+        </div>
       </div>
-
-      <div class="nav-item">
-        <a routerLink="/" class="nav-link text-white" role="button" routerLinkActive="active">Home</a>
+      <div class="nav-bar-inner">
+        <div *ngIf="getAuthService().checkLogged()" class="navWithoutHover">
+          <a class="nav-link text-white">Hello, {{getAuthService().getUserName()}}</a>
+        </div>
+        <div *ngIf="!getAuthService().checkLogged()" class="nav-item">
+          <a routerLink="login" class="nav-link text-white" role="button">Login</a>
+        </div>
+        <div *ngIf="!getAuthService().checkLogged()" class="nav-item">
+          <a routerLink="registration" class="nav-link text-white" role="button">Registration</a>
+        </div>
+        <div *ngIf="getAuthService().checkLogged()" class="nav-item">
+          <a (click)="logout()" routerLink="" class="nav-link text-white" role="button">Logout</a>
+        </div>
       </div>
-
-      <div *ngIf="!getAuthService().checkLogged()" class="nav-item">
-        <a routerLink="login" class="nav-link text-white" role="button">Login</a>
-      </div>
-
-      <div *ngIf="!getAuthService().checkLogged()" class="nav-item">
-        <a routerLink="registration" class="nav-link text-white" role="button">Registration</a>
-      </div>
-
-      <div *ngIf="getAuthService().checkLogged()" class="nav-item">
-        <a (click)="logout()" routerLink="" class="nav-link text-white" role="button">Logout</a>
-      </div>
-
-      <div *ngIf="getAuthService().checkLogged() && getAuthService().getRole() === 'admin'" class="nav-item">
-        <a routerLink="add-ingredient" class="nav-link text-white" role="button" routerLinkActive="active">Add ingredient</a>
-      </div>
-
     </div>
   </nav>
   <router-outlet></router-outlet>

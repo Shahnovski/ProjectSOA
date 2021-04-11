@@ -1,13 +1,14 @@
-<br>
 <div class="col-md-6 offset-md-3">
-  <h3>Add dish</h3>
+  <br>
+  <h3 align="center">Add dish</h3>
+  <br>
   <div class="card">
     <div class="card-body">
       <div [hidden]="submitted" >
         <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" [formGroup]="dishForm" novalidate>
 
           <div class="form-group">
-            <label class="col-md-4">Name</label>
+            <label>Name</label>
             <label for="dishName"></label><input type="text" class="form-control" id="dishName" formControlName="dishName" required [(ngModel)]="dish.dishName" name="dishName">
           </div>
           <div *ngIf="dishForm.controls['dishName'].invalid && (dishForm.controls['dishName'].dirty || dishForm.controls['dishName'].touched)" class="alert alert-danger">
@@ -36,16 +37,11 @@
             <input type="number" min="0" id="typeNumber" [(ngModel)]="ingredient.amount" [ngModelOptions]="{standalone: true}" class="form-control"/>
           </div>
 
-          <br>
-          <br>
           <div *ngIf="!countsAreCorrect()" class="alert alert-danger">Count of ingredients is incorrect!</div>
 
           <div class="form-group">
             <button type="submit" [disabled]="dishForm.invalid || !countsAreCorrect()" class="btn btn-primary">Submit</button>
           </div>
-
-          <br>
-          <br>
 
         </form>
       </div>

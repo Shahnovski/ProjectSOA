@@ -1,13 +1,14 @@
-<br>
 <div class="col-md-6 offset-md-3">
-  <h3>Add Ingredient</h3>
+  <br>
+  <h3 align="center">Add Ingredient</h3>
+  <br>
   <div class="card">
     <div class="card-body">
       <div [hidden]="submitted">
         <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" [formGroup]="ingredientForm" novalidate>
 
           <div class="form-group">
-            <label class="col-md-4">Name</label>
+            <label>Name</label>
             <label for="ingredientName"></label><input type="text" class="form-control" id="ingredientName" formControlName="ingredientName" required [(ngModel)]="ingredient.ingredientName" name="ingredientName">
           </div>
           <div *ngIf="ingredientForm.controls['ingredientName'].invalid && (ingredientForm.controls['ingredientName'].dirty || ingredientForm.controls['ingredientName'].touched)" class="alert alert-danger">
@@ -17,7 +18,7 @@
           </div>
 
           <div class="form-group">
-            <label class="col-md-4">Code</label>
+            <label>Code</label>
             <label for="ingredientCode"></label><input type="text" class="form-control" id="ingredientCode" formControlName="ingredientCode" required [(ngModel)]="ingredient.ingredientCode" name="ingredientCode">
           </div>
           <div *ngIf="ingredientForm.controls['ingredientCode'].invalid && (ingredientForm.controls['ingredientCode'].dirty || ingredientForm.controls['ingredientCode'].touched)" class="alert alert-danger">
