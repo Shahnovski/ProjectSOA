@@ -4,6 +4,8 @@
     {
         public int MenuId { get; set; }
 
+        public string Username { get; set; }
+
         public int DayOfWeekId { get; set; }
         public string DayOfWeekName { get; set; }
 

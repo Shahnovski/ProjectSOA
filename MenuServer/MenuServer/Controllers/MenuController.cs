@@ -1,8 +1,12 @@
-﻿using MenuServer.Dtos;
+﻿using MenuServer.Data;
+using MenuServer.Dtos;
 using MenuServer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Net.Http.Headers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace MenuServer.Controllers
 {
@@ -20,16 +24,18 @@ namespace MenuServer.Controllers
 
         // GET: api/menu
         [HttpGet]
-        //[AllowAnonymous]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IEnumerable<MenuDto> GetMenu()
         {
-            List<MenuDto> result = _menuService.GetAll().ToList();
+            string accessToken = Request.Headers[HeaderNames.Authorization];
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            List<MenuDto> result = _menuService.GetAll(currentUserName).ToList();
             foreach (MenuDto menu in result)
             {
                 if (menu.Dish.Ingredients.Count() > 0)
                 {
-                    _menuService.GetIngredientsFromCatalog("http://localhost:8072/api/v1/ingredients/byCodes/", menu.Dish);
-                    _menuService.GetIngredientsFromStore("http://localhost:8073/api/v1/ingredients/byCodes/", menu.Dish);
+                    _menuService.GetIngredientsFromCatalog("http://localhost:8072/api/v1/ingredients/byCodes/", menu.Dish, accessToken);
+                    _menuService.GetIngredientsFromStore("http://localhost:8073/api/v1/ingredients/byCodes/", menu.Dish, accessToken);
                 }
             }
             return result;
@@ -37,8 +43,7 @@ namespace MenuServer.Controllers
 
         // GET: api/menu/5
         [HttpGet("{id}")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        //[AllowAnonymous]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<MenuDto> GetMenu([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -60,7 +65,7 @@ namespace MenuServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IActionResult PutMenu([FromRoute] int id, [FromBody] MenuDto menuDto)
         {
             if (!ModelState.IsValid)
@@ -73,6 +78,8 @@ namespace MenuServer.Controllers
                 return BadRequest();
             }
 
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            menuDto.Username = currentUserName;
             menuDto = _menuService.Save(id, menuDto);
 
             if (!MenuExists(id))
@@ -87,7 +94,7 @@ namespace MenuServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<MenuDto> PostMenu([FromBody] MenuDto menuDto)
         {
             if (!ModelState.IsValid)
@@ -95,6 +102,8 @@ namespace MenuServer.Controllers
                 return BadRequest(ModelState);
             }
 
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            menuDto.Username = currentUserName;
             MenuDto newMenu = _menuService.Save(0, menuDto);
 
             return CreatedAtAction("GetMenu", new { id = newMenu.MenuId }, newMenu);
@@ -102,7 +111,7 @@ namespace MenuServer.Controllers
 
         // DELETE: api/menu/5
         [HttpDelete("{id}")]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<MenuDto> DeleteMenu([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -122,7 +131,7 @@ namespace MenuServer.Controllers
 
         // DELETE: api/menu
         [HttpDelete]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<MenuDto> DeleteAllMenus()
         {
             if (!ModelState.IsValid)
@@ -130,20 +139,22 @@ namespace MenuServer.Controllers
                 return BadRequest(ModelState);
             }
 
-            _menuService.DeleteAll();
+            var currentUserName = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            _menuService.DeleteAll(currentUserName);
 
             return Ok();
         }
 
         [HttpPost("toCart")]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IActionResult PostIngredientsToCart([FromBody] List<DishDto> dishDtos)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            _menuService.PostIngredientsToCart("http://localhost:8073/api/v1/cartItems/all", dishDtos);
+            string accessToken = Request.Headers[HeaderNames.Authorization];
+            _menuService.PostIngredientsToCart("http://localhost:8073/api/v1/cartItems/all", dishDtos, accessToken);
 
             return Ok();
         }

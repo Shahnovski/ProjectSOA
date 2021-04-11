@@ -8,16 +8,22 @@ import { DishCreateComponent } from './Dish/dish-create/dish-create.component';
 import { DishEditComponent } from './Dish/dish-edit/dish-edit.component';
 import { MenuListComponent } from './Menu/menu-list/menu-list.component';
 import { RedirectToShopComponent } from './Others/redirect-to-shop/redirect-to-shop.component';
+import {AuthGuardService} from './guards/auth-guard.service';
+import {AdminGuardService} from './guards/admin-guard.service';
+import {LoginComponent} from './login/login.component';
+import {RegistrationComponent} from './registration/registration.component';
 
 const routes: Routes = [
-  { path: '', component: MenuListComponent, pathMatch: 'full' },
-  { path: 'list-ingredients', component: IngredientListComponent },
-  { path: 'add-ingredient', component: IngredientCreateComponent },
-  { path: 'edit-ingredient/:id', component: IngredientEditComponent },
-  { path: 'list-dish', component: DishListComponent },
-  { path: 'add-dish', component: DishCreateComponent },
-  { path: 'edit-dish/:id', component: DishEditComponent },
-  { path: 'redirect-to-shop', component: RedirectToShopComponent }
+  { path: '', component: MenuListComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
+  { path: 'list-ingredients', component: IngredientListComponent, canActivate: [AdminGuardService] },
+  { path: 'add-ingredient', component: IngredientCreateComponent, canActivate: [AdminGuardService] },
+  { path: 'edit-ingredient/:id', component: IngredientEditComponent, canActivate: [AdminGuardService] },
+  { path: 'list-dish', component: DishListComponent, canActivate: [AuthGuardService] },
+  { path: 'add-dish', component: DishCreateComponent, canActivate: [AdminGuardService] },
+  { path: 'edit-dish/:id', component: DishEditComponent, canActivate: [AdminGuardService] },
+  { path: 'redirect-to-shop', component: RedirectToShopComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent }
 ];
 
 @NgModule({

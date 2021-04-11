@@ -42,7 +42,7 @@ export class IngredientEditComponent implements OnInit {
     this.ingredient.ingredientCode = Number(this.ingredient.ingredientCode);
     this.ingredientService.updateIngredient(this.route.snapshot.params["id"], this.ingredient)
       .subscribe(data => {
-          this.router.navigate(['']);
+          this.router.navigate(['list-ingredients']);
         },
         error => {
           if (error.error == "Ингредиент с таким кодом уже существует") {

@@ -29,7 +29,7 @@ namespace MenuServer.Models
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
 
-            modelBuilder.Entity<Menu>().HasAlternateKey(rm => new { rm.DayOfWeekId, rm.TimeOfDayId });
+            modelBuilder.Entity<Menu>().HasAlternateKey(rm => new { rm.DayOfWeekId, rm.TimeOfDayId, rm.Username });
 
             modelBuilder.Entity<Menu>()
              .HasOne(rm => rm.DayOfWeek)

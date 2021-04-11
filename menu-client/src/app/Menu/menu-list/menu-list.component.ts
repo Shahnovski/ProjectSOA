@@ -3,6 +3,7 @@ import { Menu } from '../../Models/menu';
 import { Dish } from '../../Models/dish';
 import { MenuService } from '../../services/Menu/menu.service';
 import { DishService } from '../../services/Dish/dish.service';
+import {AuthService} from '../../services/authentication/auth.service';
 
 @Component({
   selector: 'app-menu-list',
@@ -58,6 +59,7 @@ export class MenuListComponent implements OnInit {
   constructor(
     private menuService: MenuService,
     private dishService: DishService,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {

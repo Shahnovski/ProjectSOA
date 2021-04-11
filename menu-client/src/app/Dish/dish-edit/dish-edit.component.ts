@@ -57,7 +57,7 @@ export class DishEditComponent implements OnInit {
     this.dish.ingredients = this.dishIngredients;
     this.dishService.updateDish(this.route.snapshot.params.id, this.dish)
       .subscribe(data => {
-        this.router.navigate(['']);
+        this.router.navigate(['list-dish']);
       }, error => console.log(error));
   }
 

@@ -33,9 +33,9 @@ namespace MenuServer.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<MenuDto> GetAll()
+        public IEnumerable<MenuDto> GetAll(string username)
         {
-            return _menuRepository.FindAll().Select(g => _mapper.Map<MenuDto>(g));
+            return _menuRepository.FindAll(username).Select(g => _mapper.Map<MenuDto>(g));
         }
 
         public MenuDto GetById(int id)
@@ -54,8 +54,6 @@ namespace MenuServer.Services
             }
             else
             {
-                //menu.DayOfWeek = _dayOfWeekRepository.FindByName(dto.DayOfWeekName);
-                //menu.TimeOfDay = _timeOfDayRepository.FindByName(dto.TimeOfDayName);
                 menu.DayOfWeekId = _dayOfWeekRepository.FindByName(dto.DayOfWeekName).DayOfWeekId;
                 menu.TimeOfDayId = _timeOfDayRepository.FindByName(dto.TimeOfDayName).TimeOfDayId;
                 menu.Dish = null;
@@ -72,9 +70,9 @@ namespace MenuServer.Services
             _menuRepository.Save(menu);
         }
 
-        public void DeleteAll()
+        public void DeleteAll(string username)
         {
-            _menuRepository.DeleteAll();
+            _menuRepository.DeleteAll(username);
             _menuRepository.Save();
         }
 
@@ -83,7 +81,7 @@ namespace MenuServer.Services
             return _menuRepository.EntityExists(id);
         }
 
-        public void GetIngredientsFromCatalog(string url, DishDto dishDto)
+        public void GetIngredientsFromCatalog(string url, DishDto dishDto, string accessToken)
         {
             bool returnFlag = false;
             url += "?codes=";
@@ -96,6 +94,7 @@ namespace MenuServer.Services
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Substring(7));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
             List<IngredientFromCatalogDto> ingredientsFromCatalog = new List<IngredientFromCatalogDto>();
             client.SendAsync(request).ContinueWith(responseTask =>
@@ -119,7 +118,7 @@ namespace MenuServer.Services
             while (!returnFlag) { }
         }
 
-        public void GetIngredientsFromStore(string url, DishDto dishDto)
+        public void GetIngredientsFromStore(string url, DishDto dishDto, string accessToken)
         {
             bool returnFlag = false;
             url += "?codes=";
@@ -132,6 +131,7 @@ namespace MenuServer.Services
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Substring(7));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
             List<IngredientFromStoreDto> ingredientsFromCatalog = new List<IngredientFromStoreDto>();
             client.SendAsync(request).ContinueWith(responseTask =>
@@ -152,7 +152,7 @@ namespace MenuServer.Services
             while (!returnFlag) { }
         }
 
-        public void PostIngredientsToCart(string url, IEnumerable<DishDto> dishDtos)
+        public void PostIngredientsToCart(string url, IEnumerable<DishDto> dishDtos, string accessToken)
         {
             List<IngredientToCartDto> ingredientsToCart = new List<IngredientToCartDto>();
             foreach (DishDto dishDto in dishDtos)
@@ -162,6 +162,7 @@ namespace MenuServer.Services
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(url);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Substring(7));
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
             string jsonRequest = JsonSerializer.Serialize(ingredientsToCart);
             jsonRequest = jsonRequest.Replace("\"I", "\"i");

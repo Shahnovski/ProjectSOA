@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MenuServer.Services;
 using MenuServer.Dtos;
+using Microsoft.AspNetCore.Authorization;
+using MenuServer.Data;
 
 namespace MenuServer.Controllers
 {
@@ -19,7 +21,7 @@ namespace MenuServer.Controllers
 
         // GET: api/Ingredients
         [HttpGet]
-        //[AllowAnonymous]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public IEnumerable<IngredientDto> GetIngredient()
         {
             return _ingredientService.GetAll();
@@ -27,7 +29,7 @@ namespace MenuServer.Controllers
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        //[AllowAnonymous]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public ActionResult<IngredientDto> GetIngredient([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -49,7 +51,7 @@ namespace MenuServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public IActionResult PutIngredient([FromRoute] int id, [FromBody] IngredientDto ingredientDto)
         {
             if (!ModelState.IsValid)
@@ -86,7 +88,7 @@ namespace MenuServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public ActionResult<IngredientDto> PostIngredient([FromBody] IngredientDto ingredientDto)
         {
             if (!ModelState.IsValid)
@@ -106,7 +108,7 @@ namespace MenuServer.Controllers
 
         // DELETE: api/Ingredients/5
         [HttpDelete("{id}")]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public ActionResult<IngredientDto> DeleteIngredient([FromRoute] int id)
         {
             if (!ModelState.IsValid)

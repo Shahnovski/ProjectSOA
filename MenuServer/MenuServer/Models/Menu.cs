@@ -8,6 +8,9 @@ namespace MenuServer.Models
         public int MenuId { get; set; }
 
         [Required]
+        public string Username { get; set; }
+
+        [Required]
         public int TimeOfDayId { get; set; }
         public TimeOfDay TimeOfDay { get; set; }
 
@@ -18,5 +21,6 @@ namespace MenuServer.Models
         [Required]
         public int DishId { get; set; }
         public Dish Dish { get; set; }
+
     }
 }

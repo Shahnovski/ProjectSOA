@@ -5,13 +5,13 @@ namespace MenuServer.Repositories
 {
     public interface IMenuRepository : IDataRepository<Menu>
     {
-        IEnumerable<Menu> FindAll();
+        IEnumerable<Menu> FindAll(string username);
 
         Menu FindById(int id);
 
         bool EntityExists(int id);
 
-        void DeleteAll();
+        void DeleteAll(string username);
 
         void Save();
     }

@@ -9,14 +9,15 @@ namespace MenuServer.Repositories
     {
         public MenuRepository(MenuServerContext context) : base(context) { }
 
-        public IEnumerable<Menu> FindAll()
+        public IEnumerable<Menu> FindAll(string username)
         {
             return _context.Menu
                 .Include(g => g.Dish)
                 .ThenInclude(d => d.DishIngredients)
                 .ThenInclude(di => di.Ingredient)
                 .Include(g => g.TimeOfDay)
-                .Include(g => g.DayOfWeek);
+                .Include(g => g.DayOfWeek)
+                .Where(g => g.Username.Equals(username));
         }
 
         public Menu FindById(int id)
@@ -44,9 +45,9 @@ namespace MenuServer.Repositories
             _context.Set<Menu>().Remove(entity);
         }
 
-        public void DeleteAll()
+        public void DeleteAll(string username)
         {
-            Menu[] menus = FindAll().ToArray();
+            Menu[] menus = FindAll(username).ToArray();
             _context.Set<Menu>().RemoveRange(menus);
         }
 

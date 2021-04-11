@@ -35,7 +35,7 @@ export class IngredientCreateComponent implements OnInit {
         this.incorrectIngredientCode = false;
         this.ingredient = new Ingredient();
         this.ingredient = data;
-        this.router.navigate(['']);
+        this.router.navigate(['list-ingredients']);
       },
       error => {
         if (error.error == "Ингредиент с таким кодом уже существует") {

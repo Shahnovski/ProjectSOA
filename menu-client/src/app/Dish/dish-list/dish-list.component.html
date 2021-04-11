@@ -3,7 +3,9 @@
     <br>
     <h1 align="center">Dishes catalog</h1>
     <br>
-    <button [routerLink]="['/add-dish/']" routerLinkActive="active" class="btn btn-info">Add dish</button>
+    <button *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"
+            [routerLink]="['/add-dish/']" routerLinkActive="active" class="btn btn-info">Add dish
+    </button>
     <br>
     <br>
     <table class="table table-striped table-bordered table-hover ">
@@ -11,16 +13,22 @@
       <tr>
         <th>Name</th>
         <th class="col-lg-8">Ingredients</th>
-        <th></th>
-        <th></th>
+        <th *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"></th>
+        <th *ngIf="authService.checkLogged() && authService.getRole() === 'admin'"></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let dish of dishes">
         <td>{{dish.dishName}}</td>
         <td><div *ngFor="let ingredient of dish.ingredients">{{ingredient.ingredientName}}, Code: {{ingredient.ingredientCode}}, Amount: {{ingredient.amount}}</div></td>
-        <td><button [routerLink]="['/edit-dish/', dish.dishId]" routerLinkActive="active" class="btn btn-outline-info">Edit</button></td>
-        <td><button (click)="deleteDish(dish.dishId)" class="btn btn-outline-danger">Delete</button></td>
+        <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'">
+          <button [routerLink]="['/edit-dish/', dish.dishId]" routerLinkActive="active" class="btn btn-outline-info">Edit
+          </button>
+        </td>
+        <td *ngIf="authService.checkLogged() && authService.getRole() === 'admin'">
+          <button (click)="deleteDish(dish.dishId)" class="btn btn-outline-danger">Delete
+          </button>
+        </td>
       </tr>
       </tbody>
     </table>

@@ -58,16 +58,16 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public void saveAllCartItems(List<CartItemFromMenuDTO> cartItemDTOs) {
+    public void saveAllCartItems(List<CartItemFromMenuDTO> cartItemDTOs, String username) {
         cartItemDTOs.forEach( cartItemDTO -> {
             CartItem cartItem = new CartItem();
             cartItem.setCartItemCount(cartItemDTO.getCartItemCount());
             Ingredient ingredient = ingredientRepository.findByIngredientCode(cartItemDTO.getIngredientCode());
             cartItem.setIngredient(ingredient);
-            cartItem.setCartItemUserName("admin");
+            cartItem.setCartItemUserName(username);
             try {
                 CartItem existCartItem =
-                        cartItemRepository.findByCartItemUserNameAndIngredient("admin", ingredient)
+                        cartItemRepository.findByCartItemUserNameAndIngredient(username, ingredient)
                         .orElseThrow(CartItemNotFoundException::new);
                 existCartItem.setCartItemCount(existCartItem.getCartItemCount() + cartItem.getCartItemCount());
                 cartItemRepository.save(existCartItem);

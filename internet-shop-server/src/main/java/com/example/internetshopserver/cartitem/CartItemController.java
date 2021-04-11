@@ -67,8 +67,10 @@ public class CartItemController {
     }
 
     @PostMapping("/all")
-    public void createAllCartItems(@RequestBody ArrayList<CartItemFromMenuDTO> cartItemDTOs) {
-        cartItemService.saveAllCartItems(cartItemDTOs);
+    public void createAllCartItems(@RequestBody ArrayList<CartItemFromMenuDTO> cartItemDTOs,
+                                   HttpServletRequest request) {
+        String username = jwtProvider.getLoginFromToken(jwtFilter.getTokenFromRequest(request));
+        cartItemService.saveAllCartItems(cartItemDTOs, username);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

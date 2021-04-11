@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using MenuServer.Data;
 using MenuServer.Dtos;
 using MenuServer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MenuServer.Controllers
@@ -19,7 +21,7 @@ namespace MenuServer.Controllers
 
         // GET: api/Dishes
         [HttpGet]
-        //[AllowAnonymous]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public IEnumerable<DishDto> GetDish()
         {
             return _dishService.GetAll();
@@ -27,8 +29,7 @@ namespace MenuServer.Controllers
 
         // GET: api/Dishes/5
         [HttpGet("{id}")]
-        //[Authorize(AuthenticationSchemes = "Bearer")]
-        //[AllowAnonymous]
+        [Authorize(Policy = Policies.User, AuthenticationSchemes = "Bearer")]
         public ActionResult<DishDto> GetDish([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -50,7 +51,7 @@ namespace MenuServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public IActionResult PutDish([FromRoute] int id, [FromBody] DishDto dishDto)
         {
             if (!ModelState.IsValid)
@@ -77,7 +78,7 @@ namespace MenuServer.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public ActionResult<DishDto> PostDish([FromBody] DishDto dishDto)
         {
             if (!ModelState.IsValid)
@@ -92,7 +93,7 @@ namespace MenuServer.Controllers
 
         // DELETE: api/Dishes/5
         [HttpDelete("{id}")]
-        //[Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
+        [Authorize(Policy = Policies.Admin, AuthenticationSchemes = "Bearer")]
         public ActionResult<DishDto> DeleteDish([FromRoute] int id)
         {
             if (!ModelState.IsValid)

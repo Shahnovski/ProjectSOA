@@ -44,7 +44,7 @@ export class DishCreateComponent implements OnInit {
     this.dishService.createDish(this.dish).subscribe(
       data => {
         this.dish = new Dish();
-        this.router.navigate(['']);
+        this.router.navigate(['list-dish']);
       },
       error => console.log(error));
   }
