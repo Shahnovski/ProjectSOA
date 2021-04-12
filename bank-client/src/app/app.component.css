@@ -1,12 +1,11 @@
 .nav-bar {
   width: 100%;
-  display: inline-flex;
   background-color: #336B87;
-  justify-content: space-between;
 }
 
 .nav-bar-inner {
   display: flex;
+  justify-content: space-between;
 }
 
 .nav-item {
