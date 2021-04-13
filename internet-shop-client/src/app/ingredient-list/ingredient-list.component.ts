@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {ShopItem} from '../shopItem';
 import {IngredientItemService} from '../services/ingredient-item.service';
-import {CartItemService} from "../services/cart-item.service";
+import {CartItemService} from '../services/cart-item.service';
 import { AppComponent } from '../app.component';
-import {AuthService} from "../services/auth.service";
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -20,7 +20,7 @@ export class IngredientListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadIngredients();
-    this.loadCartItemsCount(this.authService.getUserName())
+    this.loadCartItemsCount(this.authService.getUserName());
   }
 
   loadIngredients() {
@@ -48,7 +48,7 @@ export class IngredientListComponent implements OnInit {
         this.loadCartItemsCount(this.authService.getUserName());
       },
       error => {
-        console.log(error)
+        console.log(error);
       });
   }
 
@@ -58,8 +58,8 @@ export class IngredientListComponent implements OnInit {
         AppComponent.cartItemsCount = data;
       },
       error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
 }

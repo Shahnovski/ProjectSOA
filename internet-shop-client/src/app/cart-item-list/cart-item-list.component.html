@@ -20,13 +20,13 @@
         <td class="butMiddle">
           <input (click)="updateIngredient(cartItem.id, cartItem)" type="number" min="0" id="typeNumber" [(ngModel)]="cartItem.cartItemCount" class="form-control"/>
         </td>
-        <td class="butMiddle">{{cartItem.ingredientPrice * cartItem.cartItemCount}}</td>
+        <td class="butMiddle">${{cartItem.ingredientPrice * cartItem.cartItemCount}}</td>
         <td class="butMiddle"><button (click)="deleteCartItem(cartItem.id)" class="btn btn-outline-danger">Delete</button></td>
       </tr>
       <tr *ngIf="this.cartItems.length != 0">
         <td class="butMiddle font-weight-bold">Total:</td>
         <td class="butMiddle font-weight-bold">{{this.totalCount}}</td>
-        <td class="butMiddle font-weight-bold">{{this.totalCost}}</td>
+        <td class="butMiddle font-weight-bold">${{this.totalCost}}</td>
         <td class="butMiddle"><button (click)="deleteCartItemsByUserId(1)" class="btn btn-outline-danger">Delete all</button></td>
       </tr>
       </tbody>

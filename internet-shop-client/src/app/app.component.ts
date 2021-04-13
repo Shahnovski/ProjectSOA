@@ -34,8 +34,8 @@ export class AppComponent implements OnInit {
         AppComponent.cartItemsCount = data;
       },
       error => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
   openCart() {
@@ -48,7 +48,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  getCartItemsCount() : number {
+  getCartItemsCount(): number {
     return AppComponent.cartItemsCount;
   }
 

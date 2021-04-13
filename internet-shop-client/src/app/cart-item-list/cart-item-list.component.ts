@@ -36,7 +36,7 @@ export class CartItemListComponent implements OnInit {
       });
   }
 
-  deleteCartItem(id: number) {
+  deleteCartItem(id: number): void {
     this.cartItemService.deleteCartItem(id)
       .subscribe(
         data => {
@@ -45,7 +45,7 @@ export class CartItemListComponent implements OnInit {
         error => console.log(error));
   }
 
-  deleteCartItemsByUserId(username: string) {
+  deleteCartItemsByUserId(username: string): void {
     this.cartItemService.deleteCartItemsByUserId(this.authService.getUserName())
       .subscribe(
         data => {

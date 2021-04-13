@@ -5,7 +5,7 @@
       <form (ngSubmit)="onSubmit()" enctype="multipart/form-data" [formGroup]="paymentForm" novalidate>
 
         <div class="form-group">
-          <label class="col-md-4">Account number</label>
+          <label>Account number</label>
           <label for="accountNumber"></label><input type="text" class="form-control" id="accountNumber" formControlName="accountNumber" required [(ngModel)]="account.accountNumber" name="accountNumber">
         </div>
         <div *ngIf="paymentForm.controls['accountNumber'].invalid && (paymentForm.controls['accountNumber'].dirty || paymentForm.controls['accountNumber'].touched)" class="alert alert-danger">
